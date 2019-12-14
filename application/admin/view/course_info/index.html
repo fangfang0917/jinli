@@ -1,0 +1,67 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    {include file='form' /}
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l">
+            <a class="btn btn-primary radius mr-5" href="javascript:;" onclick="layer_open('添加','{:url(\'CourseInfo/add\',array(\'course_id\' => $course_id))}')"><i class="Hui-iconfont"></i> 添加</a>
+            <a href="javascript:;" onclick="saveOrderNot('{:url(\'course_info/saveOrder\')}')" class="btn btn-primary radius mr-5"><i class="Hui-iconfont"></i> 保存排序</a>
+        </span>
+        <span class="r pt-5 pr-5">
+            共有数据 ：<strong>{$count}</strong> 条
+        </span>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            {include file="th" /}
+            <th width="150">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            {include file="td" /}
+            <td class="f-14">
+                <!--{$vo.status|show_status=$vo.id}-->
+                {tp:menu menu='sedit,sdeleteforever' /}
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}
+{block name='script'}
+<script>
+    function saveOrderNot(url, select) {
+        var data = {};
+        $(select || ".order-input").each(function (index, item) {
+            data[$(item).attr('data-id')] = $(item).val();
+        });
+        if (data.length == 0) {
+            layer.msg('没有可排序的对象');
+            return;
+        }
+        $.ajax({
+            url:url,
+            type:'post',
+            data:{
+                sort:data
+            },
+            dataType:"json",
+            success:function (e) {
+                if(e.status == 1){
+                    layer.msg(e.msg,{time:1000})
+                }
+                setInterval(function () {
+                    location.reload()
+                },1500)
+            }
+
+        })
+
+    }
+</script>
+{/block}

@@ -1,0 +1,63 @@
+{extend name="template/base" /}
+{block name="content"}
+
+    <div class="withdrawal-top">
+        <div class="withdrawal-number">
+            <h1>可提现余额(元)</h1>
+            <div class="withdrawal-numberbox">{:number_format($userinfo['amount'], 2, '.', '')}</div>
+        </div>
+        <div class="withdrawal-left">
+            <a href="{:url('user/usertxlist')}">
+                提现记录
+                <i class="iconfont icon-youjiantou"></i>
+            </a>
+        </div>
+    </div>
+    <div class="withdrawal-con">
+        <div class="withdrawal-fom">
+            <div class="withdrawal-fom-box">
+                <h2>提现金额</h2>
+                <div class="withdrawal-fom-con">
+                    <div class="withdrawal-fom-number">
+                        <input type="hidden" name="kt_amount" value="{$userinfo['amount']}">
+                        ￥<input type="number" name="tx_amount" class="money">
+                    </div>
+                    <button id="total_tx">全部提现</button>
+                </div>
+                <span>最少提现100元，默认到微信钱包</span>
+                <a href="javascript:;" class="withdrawal-fom-submit" _tx>提现</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="withdrawal-bot">
+        <h2>
+            提现说明：
+        </h2>
+        <ul>
+            <li>
+                1. 每笔提现金额不低于200元，平台统一收取6%税费
+            </li>
+            <li>
+                2. 每日账户提现上限为20000元，每月至多提现2次
+            </li>
+            <li>
+                3. 提现需要绑定个人银行卡号，请务必确保提供准确的的银行卡号和账户信息，若出问题，后果自负。
+            </li>
+            <li>
+                4. 提现需要进行实名认证，完成实名认证后方可提现。
+            </li>
+            <li>
+                5. 提现申请平台审核通过后，现金将在7个工作日内转入。
+            </li>
+            <li>
+                6. 如有疑问请添加微信geniusmini，联系客服。
+            </li>
+        </ul>
+    </div>
+
+{/block}
+{block name='script'}
+<script type="text/javascript" src="__STATIC__/index/js/user.js?v={:time()}"></script>
+
+{/block}

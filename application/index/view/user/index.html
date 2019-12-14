@@ -1,0 +1,210 @@
+{extend name="template/base" /}
+{block name="content"}
+<style>
+    .floating-box{display: none;}
+</style>
+<div class="upgrade-body">
+    <div class="upgrade-header-box">
+        <div class="upgrade-header">
+            <div class="upgrade-header-con">
+                <div class="upgrade-header-left">
+                    {if $userinfo.head_type == 1}
+                    <img src="{$userinfo.head}" style="width: 100%">
+                    {else}
+                    <img src="__IMG__/{$userinfo.head}" alt="" style="width: 100%">
+                    {/if}
+                </div>
+                <div class="upgrade-header-right">
+                    <h2>{$userinfo.nick_name}</h2>
+                    <div class="upgrade-header-txt">
+                        {if $userinfo.level == 0} <img src="__STATIC__/index/img/vip_lv_0.png">
+                        {elseif $userinfo.level == 1}<img src="__STATIC__/index/img/vip_lv_1.png">
+                        {elseif $userinfo.level == 2}<img src="__STATIC__/index/img/vip_lv_2.png">
+                        {elseif $userinfo.level == 3}<img src="__STATIC__/index/img/vip_lv_3.png">
+                        {elseif $userinfo.level == 4}<img src="__STATIC__/index/img/vip_lv_4.png">
+                        {else}<img src="__STATIC__/index/img/vip_lv_5.png">
+                        {/if}
+                    </div>
+                </div>
+            </div>
+            <div class="upgrade-header-a font-bold">
+                <a href="{:url('user/equity2')}"></a>
+            </div>
+        </div>
+    </div>
+    <div class="upgrade-con" share-num="{$userinfo.share_num}">
+        <div class="upgrade-Brocade">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {volist name=':getUserAuthBanner($userinfo)' id='vo'}
+                    <div class="swiper-slide">
+                        <a href="javascript:;" t-href="{if isset($vo.banner_url)}{$vo.banner_url}{else}javascript:;{/if}" style="width: 100%;height: 100%"
+                           data-banner-type="{$vo['banner_type']}" data-banner-level = "{$vo.level}">
+                            <img src="{$vo.banner_pic}" alt="{$vo.banner_title}" style="width: 100%;height: 100%">
+                        </a>
+                    </div>
+                    {/volist}
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <div class="upgrade-tool">
+            <div class="upgrade-tool-top">
+                <h2>我的工具</h2>
+            </div>
+            <div class="upgrade-tool-bot">
+                <div class="upgrade-tool-con">
+                    <a href="{:url('user/team')}">
+                        <div class="upgrade-tool-img wh-88-rem">
+                            <img src="__STATIC__/index/img/vip-2.png?v={:time()}"/>
+                        </div>
+                        <span>锦鲤圈</span>
+                    </a>
+                </div>
+                <div class="upgrade-tool-con">
+                    <a href="{:url('user/share')}">
+                        <div class="upgrade-tool-img wh-88-rem">
+                            <img src="__STATIC__/index/img/vip-3.png?v={:time()}"/>
+                        </div>
+                        <span>分享有礼</span>
+                    </a>
+                </div>
+                <div class="upgrade-tool-con">
+                    <a href="{:url('goodslist/index',array('id'=>17))}">
+                        <div class="upgrade-tool-img wh-88-rem">
+                            <img src="__STATIC__/index/img/vip-5.png?v={:time()}"/>
+                        </div>
+                        <span>培训中心</span>
+                    </a>
+                </div>
+                {if $userinfo['phone'] !=0}
+                <div class="upgrade-tool-con">
+                    <a href="{:url('user/upphone')}">
+                        <div class="upgrade-tool-img wh-88-rem">
+                            <img src="__STATIC__/index/img/vip-4.png?v={:time()}"/>
+                        </div>
+                        <span>修改手机</span>
+                    </a>
+                </div>
+                {else}
+                <div class="upgrade-tool-con">
+                    <a href="{:url('user/phone')}">
+                        <div class="upgrade-tool-img wh-88-rem">
+                            <img src="__STATIC__/index/img/vip-4.png?v={:time()}"/>
+                        </div>
+                        <span>绑定手机</span>
+                    </a>
+                </div>
+                {/if}
+            </div>
+        </div>
+        <div class="upgrade-wallet">
+            <div class="upgrade-wallet-top">
+                <div class="upgrade-wallet-top-left">
+                    我的钱包
+                </div>
+                <div class="upgrade-wallet-top-right">
+                    <a href="{:url('Amount/index')}">
+                        进入钱包
+                        <i class="iconfont icon-youjiantou"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="upgrade-wallet-cen">
+                <div class="upgrade-wallet-cen-top">我的余额</div>
+                <div class="upgrade-wallet-cen-bot">{:number_format($userinfo.amount, 2, ".", "")}</div>
+            </div>
+            <div class="upgrade-wallet-bot">
+                <div class="upgrade-wallet-bot-con">
+                    <h3>今日收益</h3>
+                    <span>{$amount.dayamount}</span>
+                </div>
+                <div class="upgrade-wallet-bot-con on">
+                    <h3>本月收益</h3>
+                    <span>{$amount.mothamount}</span>
+                </div>
+                <div class="upgrade-wallet-bot-con">
+                    <h3>累计收益</h3>
+                    <span>{$amount.totalamount}</span>
+                </div>
+            </div>
+        </div>
+        <div class="upgrade-service" style="margin-bottom: .2rem;">
+            <div class="upgrade-tool-top">
+                <h2>我的服务</h2>
+            </div>
+            <div class="upgrade-tool-bot">
+                <div class="upgrade-tool-con">
+                    <a href="{:url('user/service')}">
+                        <div class="upgrade-tool-img wh-88-rem">
+                            <img src="__STATIC__/index/img/vip-7.png?v={:time()}"/>
+                        </div>
+                        <span>客服中心</span>
+                    </a>
+                </div>
+                <div class="upgrade-tool-con">
+                    <a href="{:url('Cdkey/index')}">
+                        <div class="upgrade-tool-img wh-88-rem">
+                            <img src="__STATIC__/index/img/duih.png?v={:time()}"/>
+                        </div>
+                        <span>兑换中心</span>
+                    </a>
+                </div>
+                <div class="upgrade-tool-con">
+                    <a href="{:url('about/index')}">
+                        <div class="upgrade-tool-img wh-88-rem">
+                            <img src="__STATIC__/index/img/vip-6.png?v={:time()}"/>
+                        </div>
+                        <span>关于锦鲤</span>
+                    </a>
+                </div>
+                <div class="upgrade-tool-con">
+                    <a href="javascript:;"    _renz>
+                        <div class="upgrade-tool-img wh-88-rem">
+                            <img src="__STATIC__/index/img/renz.png?v={:time()}"/>
+                        </div>
+                        <span>身份认证</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <a href="{:url('index/index')}">
+            <div class="upgrade-tool-img">
+                <img src="__STATIC__/index/img/mm2.png?v={:time()}">
+            </div>
+
+            锦鲤MoM
+        </a>
+        <a href="{:url('order/index')}">
+            <div class="upgrade-tool-img">
+                <img src="__STATIC__/index/img/kd2.png?v={:time()}">
+            </div>
+            我的课程
+        </a>
+        <a href="{:url('user/index')}">
+            <div class="upgrade-tool-img">
+                <img src="__STATIC__/index/img/user1.png?v={:time()}">
+            </div>
+            个人中心
+        </a>
+    </div>
+</div>
+{/block}
+{block name='script'}
+<script type="text/javascript">
+    setTimeout(function(){
+        $.ajax({
+            url: "/Index/user/CreateShareEquityPic.html",
+            type: "post",
+            data: {},
+            success: function (e) {
+                console.log(e);
+            }
+        })
+    },9200);
+</script>
+
+{/block}

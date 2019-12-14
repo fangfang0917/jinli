@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .topSwiper {
+            background: red;
+            width: 100%;
+            height: 13rem;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            margin-top: .3rem;
+        }
+
+        .top-box {
+            height: 100%;
+            /*background: linear-gradient(127deg, rgba(244, 227, 193, 1) 0%, rgba(224, 182, 115, 1) 100%);*/
+            border-radius: 9px;
+            width: 86%;
+            left: 4%;
+            position: absolute;
+        }
+
+        .top-box .on {
+
+        }
+
+        .next, .left {
+            width: 50px;
+            /*background: linear-gradient(127deg, rgba(244, 227, 193, 1) 0%, rgba(224, 182, 115, 1) 100%);*/
+            background-color: #fffffc;
+            border-radius: 9px;
+            position: absolute;
+            height: 80%;
+            right: -5%;
+            top: 10%;
+        }
+
+        .left {
+            left: -5%;
+        }
+
+        .bg-red {
+            background-color: deeppink;
+        }
+
+        .bg-greenyellow {
+            background-color: greenyellow;
+        }
+
+        .bg-brown {
+            background-color: brown;
+        }
+
+        .bg-pink {
+            background-color: pink;
+        }
+
+        .bg-blue {
+            background-color: blue;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <div class="topSwiper" data-show="0">
+        <div class="left hidden"></div>
+
+
+        <div data-item="0" class="top-box bg-red">
+            卡片内容
+
+
+        </div>
+        <div data-item="1" class="top-box bg-greenyellow hidden">卡片内容</div>
+        <div data-item="2" class="top-box bg-brown hidden">卡片内容</div>
+        <div data-item="3" class="top-box bg-pink hidden">卡片内容</div>
+        <div data-item="4" class="top-box bg-blue hidden">卡片内容</div>
+
+
+
+
+        <div class="next"></div>
+    </div>
+</div>
+<script>
+    var EventUtil = {
+        addHandler: function (element, type, handler) {
+            if (element.addEventListener)
+                element.addEventListener(type, handler, false);
+            else if (element.attachEvent)
+                element.attachEvent("on" + type, handler);
+            else
+                element["on" + type] = handler;
+        },
+        removeHandler: function (element, type, handler) {
+            if (element.removeEventListener)
+                element.removeEventListener(type, handler, false);
+            else if (element.detachEvent)
+                element.detachEvent("on" + type, handler);
+            else
+                element["on" + type] = handler;
+        },
+        /**
+         * 监听触摸的方向
+         * @param target            要绑定监听的目标元素
+         * @param isPreventDefault  是否屏蔽掉触摸滑动的默认行为（例如页面的上下滚动，缩放等）
+         * @param upCallback        向上滑动的监听回调（若不关心，可以不传，或传false）
+         * @param rightCallback     向右滑动的监听回调（若不关心，可以不传，或传false）
+         * @param downCallback      向下滑动的监听回调（若不关心，可以不传，或传false）
+         * @param leftCallback      向左滑动的监听回调（若不关心，可以不传，或传false）
+         */
+        listenTouchDirection: function (target, isPreventDefault, upCallback, rightCallback, downCallback, leftCallback) {
+            this.addHandler(target, "touchstart", handleTouchEvent);
+            this.addHandler(target, "touchend", handleTouchEvent);
+            this.addHandler(target, "touchmove", handleTouchEvent);
+            var startX;
+            var startY;
+
+            function handleTouchEvent(event) {
+                switch (event.type) {
+                    case "touchstart":
+                        startX = event.touches[0].pageX;
+                        startY = event.touches[0].pageY;
+                        break;
+                    case "touchend":
+                        var spanX = event.changedTouches[0].pageX - startX;
+                        var spanY = event.changedTouches[0].pageY - startY;
+
+                        if (Math.abs(spanX) > Math.abs(spanY)) {      //认定为水平方向滑动
+                            if (spanX > 30) {         //向右
+                                if (rightCallback)
+                                    rightCallback();
+                            } else if (spanX < -30) { //向左
+                                if (leftCallback)
+                                    leftCallback();
+                            }
+                        } else {                                    //认定为垂直方向滑动
+                            if (spanY > 30) {         //向下
+                                if (downCallback)
+                                    downCallback();
+                            } else if (spanY < -30) {//向上
+                                if (upCallback)
+                                    upCallback();
+                            }
+                        }
+
+                        break;
+                    case "touchmove":
+                        //阻止默认行为
+                        if (isPreventDefault)
+                        // event.preventDefault();
+                            break;
+                }
+            }
+        }
+    };
+
+
+    // 调用
+    function up() {
+        console.log("上");
+    }
+
+    function down() {
+        console.log("下");
+    }
+
+    function right() {
+        var show = parseInt($(".topSwiper").attr('data-show'));
+        if (show > 0) {
+            $("[data-item]").addClass('hidden');
+            $(".left").show();
+            $(".left").animate({width: '222%', top: 0, height: '100%',}, 300, 'swing', function () {
+                $(".left").animate({left: '120%',}, 500, 'swing', function () {
+                    $("[data-item]").eq(show - 1).removeClass('hidden');
+                    $(".left").hide();
+                    $(".left").attr('style', '');
+                    $(".left").hide();
+                    $(".topSwiper").attr('data-show', (show - 1));
+                });
+            });
+        }
+        console.log("右");
+    }
+
+    function left() {
+        var show = parseInt($(".topSwiper").attr('data-show'));
+        console.log(show, $("[data-item]").length);
+        if (show < (parseInt($("[data-item]").length) - 1)) {
+            $("[data-item]").addClass('hidden');
+            $(".next").animate({width: '222%', top: 0, height: '100%',}, 300, 'swing', function () {
+                $(".next").animate({right: '120%',}, 500, 'swing', function () {
+                    $("[data-item]").eq(show + 1).removeClass('hidden');
+                    $(".next").hide();
+                    $(".next").attr('style', '');
+                    $(".next").show();
+                    $(".topSwiper").attr('data-show', (show + 1));
+                });
+            });
+        }
+        console.log("左");
+    }
+
+    EventUtil.listenTouchDirection($(".topSwiper")[0], true, up, right, down, left)
+</script>
+</body>
+
+</html>

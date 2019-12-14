@@ -1,0 +1,28 @@
+{extend name="template/base"/}
+{block name="content"}
+<style>
+    html,body{
+        background-color: #F5F5F5 !important;
+    }
+    .common-body {
+        height: auto;
+        min-height: 100%;
+    }
+</style>
+<div class="common-body">
+    <div class="common-box">
+        <ul>
+            {if isset($list)}
+            {volist name='list' id='vo'}
+            <li>
+                <div class="common-text">
+                    <h1>Q: {$vo.problem}？</h1>
+                    <p>A:{$vo.da}</p>
+                </div>
+            </li>
+            {/volist}
+            {/if}
+        </ul>
+    </div>
+</div>
+{/block}

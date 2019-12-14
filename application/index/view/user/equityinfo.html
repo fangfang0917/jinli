@@ -1,0 +1,21 @@
+{extend name="template/base"/}
+{block name='style'}
+{/block}
+{block name="content"}
+<style>
+    .z-con{background:#edb6a3;padding:0.21rem;}
+    .z-con .topimg{width:100%;height:4rem;background:url(/static/index/img/home/vip-zxj-ch.png);background-size:100% 100%;}
+    .z-con .innerzcon{background: #ffd1cb;padding:0.32rem;padding-top:0.4rem;background:#ffd1cb;margin-top:-0.7rem;}
+    .z-con .innerzcon img{width: 100%}
+</style>
+
+
+<div class="z-con">
+    <div class="topimg"></div>
+    <div class="innerzcon">
+        {volist name='picArr' id='r'}
+        <img src="{$r}" alt="">
+        {/volist}
+    </div>
+</div>
+{/block}

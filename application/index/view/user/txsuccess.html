@@ -1,0 +1,28 @@
+{extend name="template/base" /}
+{block name="content"}
+
+    <div class="successful-con">
+        <div class="successful-img">
+            <img src="__STATIC__/index/img/wancheng.png"/>
+        </div>
+        <div class="successful-text">
+            <div class="successful-top">
+                提现申请已提交，等待人工审核
+            </div>
+            <div class="successful-cet">
+				<span>
+					{:date('Y-m-d',$time)}
+				</span>
+                <span>
+					  {:date('H:s',$time)}
+				</span>
+            </div>
+            <div class="successful-bot">
+                预计到账时间：
+                <span>{:date('m',$daotime)}月{:date('d',$daotime)}日</span>
+            </div>
+        </div>
+        <a href="{:url('user/usertxlist')}" class="r">完成</a>
+    </div>
+
+{/block}

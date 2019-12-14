@@ -1,0 +1,34 @@
+var urlcourseinfolist = "/index/course/getcourseinfolist.html";
+var getZcourseinfoUrl = "/index/index/getzcourseinfolist.html";
+var getcommenturl = "/index/course/getcoursecomment.html";
+var setcommenturl = "/index/course/setcoursecomment.html";
+var urlindex = "/index/index/carecourselist.html";
+var urlgoodslist= "/index/goodslist/jlcourselist.html";
+var urlsetinclikenum = "/index/course/setinclikenum.html";
+var formurl = "/index/form/form.html";
+var orderlisturl ="/index/order/orderlist.html";
+var amountlisturl ="/index/amount/amountlist.html";
+var amountjc ="/index/amount/jcamount.html";
+var usertxurl ="/index/user/usertx.html";
+var usertxlisturl = "/index/user/txsuccess.html";
+var setlookurl = "/index/course/setlook.html";
+var updatetimeurl = "/index/course/updatetime.html";
+var getequityurl = "/index/user/getequity.html";
+var buyVipUrl = "/index/buy/buyVip.html";
+var buyCourseUrl = "/index/buy/buyCourse.html";
+var buyLevelUrl = "/index/buy/levelUp.html";
+var succbuyvipUrl = "/index/course/viplibao.html";
+var setusercourseurl = "/index/buy/succbuyVip.html";
+var courseshareurl = "/index/course/courseshare.html";
+var Phoneurl = "/index/user/sendSms.html";
+var setPhoneurl = "/index/user/setPhone.html";
+var shareweixin = "/index/user/createurl.html";
+var userindexURl = "/index/user/index.html";
+var authPhoneurl = "/index/course/authphone.html";
+var setCoursePhoneUrl = "/index/user/phone.html";
+var getSharePicDateUrl = "/index/user/getshare.html";
+var levelUpNotBuyUrl = "/index/user/levelUpNotBuy.html";
+var deleteUserUrl = "/index/user/deleteUser.html";
+//ceshi start
+var noVipUrl = "/index/user/noVip.html";
+//ceshi end

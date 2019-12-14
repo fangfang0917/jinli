@@ -1,0 +1,100 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    <form class="mb-20" method="get" action="{:\\think\\Url::build($Request.action)}">
+        <input type="text" class="input-text" style="width:250px" placeholder="用户昵称" name="nick_name" value="{$Request.param.nick_name}">
+        <select name="type_status" id="" class="select-box" style="width: 250px;height: 31px">
+            <option value="0" {if $Request.param.type_status == 0}selected{/if}>请选择审核状态</option>
+            <option value="1" {if $Request.param.type_status == 1}selected{/if}>待审核</option>
+            <option value="2" {if $Request.param.type_status == 2}selected{/if}>通过并发放</option>
+            <option value="3" {if $Request.param.type_status == 3}selected{/if}>未通过并退回</option>
+        </select>
+        <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray">
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th width="100">申请人</th>
+            <th width="150">申请金额</th>
+            <th width="150">申请时间</th>
+            <th width="150">审核状态</th>
+            <th width="150">真实姓名</th>
+            <th width="150">身份证号</th>
+            <th width="150">银行账号</th>
+            <th width="150">描述</th>
+            <th width="150">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td>{$vo.nick_name}</td>
+            <td>{$vo.amount}</td>
+            <td>{:date('Y-m-d H:i:s',$vo.add_time)}</td>
+            <td>{if $vo.type_status == 1} <span style="color: #00B83F">通过</span> {elseif $vo.type_status == 2} <span style="color: red"> 未通过</span>{else}<span style="color: #0a67fb">待审核</span>{/if}</td>
+            <td>{$vo.realname !='0' ? $vo.realname : "未认证"}</td>
+            <td>{$vo.card !='0' ? $vo.card : "未认证"}</td>
+            <td>{$vo.bankname !='0' ? $vo.bankname : "未认证"}</td>
+            <td>{$vo.remarks}</td>
+            <td class="f-14">
+                {if $vo.type_status ==1}
+                <a href="javascript:;" class="label radius label-success">已审核,通过</a>
+                {elseif $vo.type_status == 2}
+                <a href="javascript:;" class="label label-warning radius">已审核,未通过</a>
+                {else}
+                <a href="javascript:istype('{$vo.id}',1);" class="label radius " data-id="{$vo.id}" data-type="1" style="background-color: #0a67fb">通过</a>
+                <!--<a href="javascript:istype('{$vo.id}',2);" class="label label-warning radius " data-id="{$vo.id}" data-type="2">不通过</a>-->
+                {/if}
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}
+{block name='script'}
+<script>
+    function istype(id, type) {
+        layer.confirm('是否确认操作？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.ajax({
+                url:"{:url('UserTxRecord/type')}",
+                type:'post',
+                data:{
+                    id:id,
+                    type:type
+                },
+                dataType:'json',
+                success:function (e) {
+                    console.log(e);
+                    if(e.state == 1){
+                        layer.msg(e.msg,{icon:6,time:1000});
+                        setInterval(function () {
+                            location.reload();
+                        },2000)
+                    }else{
+                        layer.msg('网络错误!请重试',{icon:5,time:1000});
+                        setInterval(function () {
+                            location.reload();
+                        },2000)
+                    }
+                },
+                error:function (e) {
+                    layer.msg('网络错误!请重试',{icon:5,time:1000});
+                    setInterval(function () {
+                        location.reload();
+                    },2000)
+                }
+            })
+        }, function(){
+            layer_close();
+        });
+    }
+
+
+</script>
+{/block}

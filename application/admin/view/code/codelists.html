@@ -1,0 +1,29 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="r pt-5 pr-5">
+             <form action="{:url('code/excel',array('id'=>$cid))}" target="_blank" method="post">
+        <button class="btn btn-success" type="submit">导出Excel</button>
+         </form>
+        </span>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th>code</th>
+            <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td>{$vo.code}</td>
+            <td>{$vo.cantype == 1 ? '<span style="color:red">已使用</span>' : '<span style="color:green">未使用</span>'}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}

@@ -1,0 +1,57 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    <!--<p class="c-red">以下为静态展示内容</p>-->
+    <div style="margin-top: 20px">
+        <table class="table table-border table-bordered table-bg">
+            <thead>
+            <tr>
+                <th colspan="7" scope="col">销售信息统计
+                    <form class="mb-20" method="get" action="{:\\think\\Url::build($Request.action)}">
+                        <input type="text" class="input-text" style="width: 150px;" placeholder="课程名称"
+                               name="course_title" value="{$Request.param.course_title}">
+                        <input type="text" class="input-text" style="width: 150px" placeholder="开始时间" readonly
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="start_time">
+                        <input type="text" class="input-text" style="width: 150px" placeholder="结束时间" readonly
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="end_time">
+                        <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i>
+                            搜索
+                        </button>
+                    </form>
+                    <form action="{:url('Sales/excel')}" method="post">
+                        <input type="text" class="input-text" style="width: 150px;" placeholder="课程名称"
+                               name="course_title"  value="{$Request.param.course_title}">
+                        <input type="text" class="input-text" style="width: 150px" placeholder="开始时间" readonly
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="start_time">
+                        <input type="text" class="input-text" style="width: 150px" placeholder="结束时间" readonly
+                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="end_time">
+                        <button class="btn btn-success" type="submit">导出Excel</button>
+                    </form>
+                </th>
+            </tr>
+            <tr class="text-c">
+                <th>课程标题</th>
+                <th>课程价格</th>
+                <th>销售量</th>
+                <th>销售总金额</th>
+                <!--<th>销售时间</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.course_title}</td>
+                <td>{$vo.course_money ??0}</td>
+                <td>{$vo.buy_num ?? 0}</td>
+                <td>{$vo.total_money ?? 0}</td>
+                <!--<td>{$vo.add_time ?? '暂无购买'}</td>-->
+            </tr>
+            {/volist}
+
+
+            </tbody>
+        </table>
+        <div class="page-bootstrap">{$page}</div>
+    </div>
+</div>
+{/block}

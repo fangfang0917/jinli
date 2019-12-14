@@ -1,0 +1,31 @@
+{extend name="template/base" /}
+{block name="content"}
+<style>
+    .index-search{
+        padding: 0;
+        width: 91%;
+        margin: 0 auto;
+        margin-top: .1rem;
+    }
+</style>
+<!-- 搜索 -->
+<div class="index-search">
+    <div class="search-box">
+        <i class="iconfont icon-sousuo sou"></i>
+        <input type="text" name="where" placeholder="搜索课程/老师/专题" id="search" style="line-height: 0.68rem;">
+        <i class="iconfont icon-guanbi bi" style="font-size: .35rem;"></i>
+    </div>
+    <a href="{:url('index/index')}" style="text-align: center;font-size: .3rem;line-height: 0.68rem;line-height: 0.68rem;width: 17%;color: #108EE9;">取消</a>
+</div>
+<div class="search-con">
+    <div class="detailsbot">
+        <div class="search-none">
+            <!--<img src="__STATIC__/index/img/sousuo.png?v={:time()}">-->
+        </div>
+    </div>
+</div>
+{/block}
+{block name='script'}
+<script type="text/javascript" src="__STATIC__/index/js/form.js?v={:time()}"></script>
+
+{/block}

@@ -1,0 +1,268 @@
+{extend name="template/base" /}
+{block name='style'}
+<style>
+    .w {
+        width: 30%
+    }
+
+    .s {
+        width: 100px;
+        text-align: right;
+        display: inline-block;
+    }
+</style>
+{/block}
+{block name="nav"}{/block}
+{block name="content"}
+<div class="page-container">
+    <form class="form form-horizontal" id="form" method="post" action="{:\\think\\Request::instance()->baseUrl()}">
+        <input type="hidden" name="id" value="{$vo.id ?? ''}">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>{$levelname['level1']}费：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <input type="number" class="input-text" name="vip_money" placeholder="{$levelname['level1']}费"
+                       value="{$data['vip_money'] ?? ''}" style="width:80%;"
+                       datatype="*" nullmsg="请填写{$levelname['level1']}费">元
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>升级费用：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <div>
+                    <span class="s">{$levelname['level2']}:</span>
+                    <input type="number" class="input-text w" name="vip_team_money_up" placeholder="{$levelname['level2']}卡位直升费用"
+                           value="{$data['vip_team_money_up'] ?? ''}" datatype="*" nullmsg="请填写{$levelname['level2']}卡位直升费用">元
+                    <span class="s">{$levelname['level3']}:</span>
+                    <input type="number" class="input-text w" name="vip_team1_money_up" placeholder="{$levelname['level3']}卡位直升费用"
+                           value="{$data['vip_team1_money_up'] ?? ''}" datatype="*" nullmsg="请填写{$levelname['level3']}卡位直升费用">元
+                </div>
+                <div>
+                    <span class="s">{$levelname['level4']}:</span>
+                    <input type="number" class="input-text w"
+                           name="vip_team2_money_up"
+                           placeholder="{$levelname['level4']}卡位直升费用"
+                           value="{$data['vip_team2_money_up'] ?? ''}"
+                           datatype="*" nullmsg="请填写{$levelname['level4']}卡位直升费用">元
+                    <span class="s">{$levelname['level5']}:</span>
+                    <input type="number" class="input-text w"
+                           name="vip_team3_money_up"
+                           placeholder="{$levelname['level5']}卡位直升费用"
+                           value="{$data['vip_team3_money_up'] ?? ''}"
+                           datatype="*"
+                           nullmsg="请填写{$levelname['level5']}卡位直升费用">元
+                </div>
+
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>零售{$levelname['level1']}收益：</label>
+            <div class="formControls col-xs-6 col-sm-6" style="text-align:justify;">
+                <div>
+                    <span class="s">{$levelname['level1']}(直):</span>
+                    <input type="number" class="input-text w" name="vip_money_op1"
+                           placeholder="{$levelname['level1']}推荐收益(直接)" value="{$data['vip_money_op1'] ?? ''}" datatype="*"
+                           nullmsg="请填写{$levelname['level1']}推荐收益(直接)">元
+                    <span class="s">{$levelname['level1']}(间):</span>
+                    <input type="number" class="input-text w" name="vip_money_op2"
+                           placeholder="{$levelname['level1']}推荐收益(间接)" value="{$data['vip_money_op2'] ?? ''}" datatype="*"
+                           nullmsg="请填写{$levelname['level1']}推荐收益(间接)">元
+                </div>
+                <div>
+                    <span class="s">{$levelname['level2']}(直):</span>
+                    <input type="number" class="input-text w" name="vip_team_money_op1"
+                           placeholder="{$levelname['level2']}推荐收益(直接)" value="{$data['vip_team_money_op1'] ?? ''}" datatype="*"
+                           nullmsg="请填写{$levelname['level2']}推荐收益(直接)">元
+                    <span class="s">{$levelname['level2']}(间):</span>
+                    <input type="number" class="input-text w" name="vip_team_money_op2"
+                           placeholder="{$levelname['level2']}推荐收益(间接)" value="{$data['vip_team_money_op2'] ?? ''}" datatype="*"
+                           nullmsg="请填写{$levelname['level2']}推荐收益(间接)">元
+                </div>
+                <div>
+                    <span class="s">{$levelname['level3']}(直):</span>
+                    <input type="number" class="input-text w" name="vip_team1_money_op1"
+                           placeholder="创联推荐收益(直接)" value="{$data['vip_team1_money_op1'] ?? ''}" datatype="*"
+                           nullmsg="请填写创联推荐收益(直接)">元
+                    <span class="s">{$levelname['level3']}(间):</span>
+                    <input type="number" class="input-text w" name="vip_team1_money_op2"
+                           placeholder="创联推荐收益(间接)" value="{$data['vip_team1_money_op2'] ?? ''}" datatype="*"
+                           nullmsg="请填写创联推荐收益(间接)">元
+                </div>
+                <div>
+                    <span class="s">{$levelname['level4']}(直):</span>
+                    <input type="number" class="input-text w" name="vip_team2_money_op1"
+                           placeholder="{$levelname['level4']}推荐收益(直接)" value="{$data['vip_team2_money_op1'] ?? ''}" datatype="*"
+                           nullmsg="请填写{$levelname['level4']}推荐收益(直接)">元
+                    <span class="s">{$levelname['level4']}(间):</span>
+                    <input type="number" class="input-text w" name="vip_team2_money_op2"
+                           placeholder="{$levelname['level4']}推荐收益(间接)" value="{$data['vip_team2_money_op2'] ?? ''}" datatype="*"
+                           nullmsg="请填写{$levelname['level4']}推荐收益(间接)">元
+                </div>
+                <div>
+                    <span class="s">{$levelname['level5']}(直):</span>
+                    <input type="number" class="input-text w" name="vip_team3_money_op1"
+                           placeholder="{$levelname['level5']}推荐收益(直接)" value="{$data['vip_team3_money_op1'] ?? ''}" datatype="*"
+                           nullmsg="请填写{$levelname['level5']}推荐收益(直接)">元
+                    <span class="s">{$levelname['level5']}(间):</span>
+                    <input type="number" class="input-text w" name="vip_team3_money_op2"
+                           placeholder="{$levelname['level5']}推荐收益(间接)" value="{$data['vip_team3_money_op2'] ?? ''}" datatype="*"
+                           nullmsg="请填写{$levelname['level5']}推荐收益(间接)">元
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>代理推荐收益：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <div>
+                    <span class="s">{$levelname['level2']}:</span>
+                    <input type="number" class="input-text w" name="vip_tui_c" placeholder="推荐{$levelname['level2']}收益"
+                           value="{$data['vip_tui_c'] ?? ''}"
+                           datatype="*" nullmsg="请填写推荐{$levelname['level2']}收益">元
+
+
+                </div>
+                <div>
+                    <span class="s">{$levelname['level3']}:</span>
+                    <input type="number" class="input-text w" name="vip_tui_z" placeholder="推荐{$levelname['level3']}收益"
+                           value="{$data['vip_tui_z'] ?? ''}"
+                           datatype="*" nullmsg="请填写推荐{$levelname['level3']}收益">元
+
+
+                </div>
+
+                <div>
+                    <span class="s">{$levelname['level4']}:</span>
+                    <input type="number" class="input-text w" name="vip_tui_g" placeholder="推荐{$levelname['level4']}收益"
+                           value="{$data['vip_tui_g'] ?? ''}"
+                           datatype="*" nullmsg="请填写推荐{$levelname['level4']}收益">元
+
+                </div>
+                <div>
+                    <span class="s">{$levelname['level5']}:</span>
+                    <input type="number" class="input-text w" name="vip_tui_zj" placeholder="推荐{$levelname['level5']}收益"
+                           value="{$data['vip_tui_zj'] ?? ''}"
+                           datatype="*" nullmsg="请填写推荐{$levelname['level5']}收益">元
+
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>服务奖收益：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <div>
+                    <span class="s">{$levelname['level2']}:</span>
+                    <input type="number" class="input-text w" name="vip_team_fuwu" placeholder="{$levelname['level2']}服务奖比例"
+                           value="{$data['vip_team_fuwu'] ?? ''}" datatype="*" nullmsg="请填写{$levelname['level2']}服务奖比例">%
+                </div>
+                <div>
+                    <span class="s">{$levelname['level3']}:</span>
+                    <input type="number" class="input-text w" name="vip_team1_fuwu" placeholder="{$levelname['level3']}服务奖比例"
+                           value="{$data['vip_team1_fuwu'] ?? ''}" datatype="*" nullmsg="请填写{$levelname['level3']}服务奖比例">%
+                </div>
+                <div>
+                    <span class="s">{$levelname['level4']}:</span>
+                    <input type="number" class="input-text w" name="vip_team2_fuwu"
+                           placeholder="{$levelname['level4']}服务奖比例"
+                           value="{$data['vip_team2_fuwu'] ?? ''}" datatype="*" nullmsg="请填写{$levelname['level4']}服务奖比例">%
+                </div>
+                <div>
+                    <span class="s">{$levelname['level5']}:</span>
+                    <input type="number" class="input-text w" name="vip_team3_fuwu" placeholder="{$levelname['level5']}服务奖比例"
+                           value="{$data['vip_team3_fuwu'] ?? ''}" datatype="*" nullmsg="请填写{$levelname['level5']}服务奖比例">%
+                </div>
+
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>单课分成收益：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <div><span class="s">单笔直推:</span>
+                    <input type="number" class="input-text w" name="op_danke_z" placeholder="单课直接收益"
+                           value="{$data['op_danke_z'] ?? ''}"
+                           datatype="*" nullmsg="请填写单课直接收益">%
+                </div>
+                <div>
+                    <span class="s">单笔间推:</span>
+                    <input type="number" class="input-text w" name="op_danke_j" placeholder="单课间接收益"
+                           value="{$data['op_danke_j'] ?? ''}"
+                           datatype="*" nullmsg="请填写单课间接收益">%
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>推荐升级要求人数：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <div><span class="s">{$levelname['level2']}:</span>
+                    <input type="number" class="input-text w" name="agent_num" placeholder="{$levelname['level2']}升级推荐人数"
+                           value="{$data['agent_num'] ?? ''}"
+                           datatype="*" nullmsg="请填写{$levelname['level2']}推荐升级要求">人
+                </div>
+                <div><span class="s">{$levelname['level3']}:</span>
+                    <input type="number" class="input-text w" name="cagent_num" placeholder="{$levelname['level3']}升级推荐人数"
+                           value="{$data['cagent_num'] ?? ''}"
+                           datatype="*" nullmsg="请填写{$levelname['level3']}推荐升级要求">人
+                </div>
+                <div><span class="s">{$levelname['level4']}:</span>
+                    <input type="number" class="input-text w" name="zagent_num" placeholder="{$levelname['level4']}升级推荐人数"
+                           value="{$data['zagent_num'] ?? ''}"
+                           datatype="*" nullmsg="请填写{$levelname['level4']}推荐升级要求">人
+                </div>
+                <div><span class="s">{$levelname['level5']}:</span>
+                    <input type="number" class="input-text w" name="zjagent_num" placeholder="{$levelname['level5']}升级推荐人数"
+                           value="{$data['zjagent_num'] ?? ''}"
+                           datatype="*" nullmsg="请填写{$levelname['level5']}推荐升级要求">人
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>分享人员临时绑定的事时间：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <div><span class="s">时间:</span>
+                    <input type="number" class="input-text w" name="linshitime" placeholder="请填写临时绑定时间"
+                           value="{$data['linshitime'] ?? '7'}"
+                           datatype="*" nullmsg="请填写临时绑定时间">天
+                </div>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <button type="submit" class="btn btn-primary radius">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+                <button type="button" class="btn btn-default radius ml-20" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__LIB__/jquery.ajaxSubmit.js"></script>
+<script>
+    $(function () {
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form").Validform({
+            tiptype: 2,
+            ajaxPost: true,
+            showAllError: true,
+            callback: function (ret) {
+                ajax_progress(ret);
+            }
+        });
+    })
+</script>
+{/block}

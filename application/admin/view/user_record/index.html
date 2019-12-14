@@ -1,0 +1,63 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    <form class="mb-20" method="get" action="{:\\think\\Url::build($Request.action)}">
+        <input type="text" class="input-text" style="width:250px" placeholder="用户昵称" name="nick_name" value="{$Request.param.nick_name}">
+        <select name="type" id="" class="select-box" style="width:250px;height: 31px">
+            <option value="0" {if $Request.param.type == 0}selected{/if}>请选择账变类型</option>
+            <option value="1" {if $Request.param.type == 1}selected{/if}>直推购买返点</option>
+            <option value="2" {if $Request.param.type == 2}selected{/if}>间推购买返点</option>
+            <option value="3" {if $Request.param.type == 3}selected{/if}>提现</option>
+            <option value="4" {if $Request.param.type == 4}selected{/if}>推荐代理奖励</option>
+            <option value="5" {if $Request.param.type == 5}selected{/if}>服务奖</option>
+        </select>
+        <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray">
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th width="100">账变人</th>
+            <th width="150">账变金额</th>
+            <th width="150">账变时间</th>
+            <th width="150">类型</th>
+            <th width="150">是否需审核</th>
+            <th width="150">审核状态</th>
+            <th width="150">审核时间</th>
+            <th width="150">是否是推荐返点</th>
+            <th width="150">返点人</th>
+            <th width="150">描述</th>
+            <!--<th width="150">操作</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td>{$vo.nick_name}</td>
+            <td>{if $vo.type == 1 ||  $vo.type == 2 ||  $vo.type == 5 ||  $vo.type == 4}<span style="color: #00B83F">+{$vo.amount}</span>{else}<span style="color: red">-{$vo.amount}</span>{/if}</td>
+            <td>{:date('Y-m-d H:i:s',$vo.add_time)}</td>
+            <td>{if $vo.type == 1}直推购买返点{elseif $vo.type == 2}间推购买返点{elseif $vo.type== 3}提现{elseif $vo.type == 4}推荐代理奖{elseif $vo.type == 5}服务奖{/if}</td>
+            <td>{if $vo.type == 1 ||  $vo.type == 2 ||  $vo.type == 5 ||  $vo.type == 4}<span style="color:red ">否</span>{else}<span style="color: #00B83F">是</span>{/if}</td>
+            <td>{if $vo.type == 1 ||  $vo.type == 2 ||  $vo.type == 5 ||  $vo.type == 4}
+                    <span style="color: #00B83F">--</span>
+                {else}
+                    {if $vo.type_status == 1}
+                        <span style="color: #00B83F">已审核并发放</span>
+                    {elseif $vo.type_status == 2}
+                        <span style="color: red">审核未通过退回</span>
+                    {else}
+                        <span style="color: #0a67fb">待审核</span>
+                    {/if}
+                {/if}</td>
+            <td>{if $vo.type == 1 ||  $vo.type == 2 ||  $vo.type == 5 ||  $vo.type == 4}<span style="color: #00B83F">--</span>{else}{:date('Y-m-d H:i:s',$vo.up_time)}{/if}</td>
+            <td>{if $vo.type == 1 ||  $vo.type == 2 || $vo.type == 5 ||  $vo.type == 4}<span style="color: #00B83F">是</span>{else} <span style="color: red">否</span> {/if}</td>
+            <td>{if $vo.type == 1 ||  $vo.type == 2 || $vo.type == 5 ||  $vo.type == 4}<span style="color: #00B83F">{$vo.snick_name}</span>{else}--{/if}</td>
+            <td>{$vo.remarks}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}

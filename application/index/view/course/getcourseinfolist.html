@@ -1,0 +1,44 @@
+{if isset($courseinfolist)}
+{if count($courseinfolist)}
+{volist name='courseinfolist' id='vo'}
+    <li class="directory-li" id="play{$vo.id}" onclick="bf('{$vo.id}')" data-id="{$vo.id}"
+        data-level="{$level}" data-url="{$vo.course_info_path}" data-auth="{$vo.course_info_auth}"
+        data-buy="{$vo.buy_type}" data-pic="{$vo.course_info_pic}" data-vip="{$course.course_isvip}"  data-course-id="{$vo.course_id}" data-time="{$vo.look_time}">
+        <div class="directory-li-left">
+            {if $vo.buy_type == 1}
+                    <div class="bofang audition" style="display: none">
+                        <img src="__STATIC__/index/img/bofang.png">
+                    </div>
+                    <div class="play audition">
+                        <img src="__STATIC__/index/img/zanting.png">
+                    </div>
+            {elseif $vo.buy_type == 2}
+                    <div class="audition st">
+                        试听
+                    </div>
+                    <div class="bofang audition" style="display: none">
+                        <img src="__STATIC__/index/img/bofang.png">
+                    </div>
+            {else}
+                    <div class="suo audition">
+                        <img src="__STATIC__/index/img/suo.png">
+                    </div>
+            {/if}
+        </div>
+        <div class="directory-li-right">
+            <div class="directory-title">
+                <h2>
+                    {$vo.course_info_title}
+                </h2>
+            </div>
+            <div class="directory-tim">
+                <span>{$vo.course_info_path_time}</span>
+                <span>已播放{$vo.course_info_look_num}次</span>
+            </div>
+        </div>
+    </li>
+{/volist}
+{else}
+<div class="emptyGood">暂无数据</div>
+{/if}
+{/if}

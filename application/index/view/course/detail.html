@@ -1,0 +1,176 @@
+{extend name="template/base" /}
+{block name="content"}
+<style>
+body,html{width:100% !important;height:100% !important;-webkit-overflow-scrolling:touch;}/*必须*/
+
+.details-tap img{width:100%}
+#w-h-rig{position:fixed;top:0;width:100%;height:2.3rem;background:#FFFFFF;z-index:19950320;color:#000000;font-size:.3rem;display:none}
+.layui-layer-content{color:#000000 !important}
+.layui-layer-tips .layui-layer-content{font-size:.2rem !important}
+.emptyGood{text-align:center;color:#ccc;font-size:.3rem}
+.touming{opacity:1;}
+
+
+</style>
+<div id="w-h-rig"></div>
+<div class="video-box">
+
+    <div id="video-r">
+        <div class="playvideo">
+            <div class="zy_media">
+                <video poster="{$courseDetails.course_pic}" id="video" data-id="{$course_info_id}" webkit-playsinline="true"
+                       playsinline="true" x5-playsinline="true" x-webkit-airplay="allow"
+                       data-config='{"mediaTitle": ""}'  x5-video-player-type="h5"
+                       x5-video-player-fullscreen="false" >
+                    {:outVideoHtml($course_info_detail['course_info_path'])}
+                    您的浏览器不支持HTML5视频
+                </video>
+            </div>
+            <div id="modelView" class="modelView">
+            </div>
+        </div>
+    </div>
+
+
+    <div id="courseShare">
+        <a class="courseShare" href="/index/course/courseshare/id/{$courseDetails.id}.html" style="color: #fff"><img src="__STATIC__/index/img/share.png" alt="" style="width:100%;"></a>
+    </div>
+    <div id="course_info_id" data-id="{$course_info_id}"></div>
+    <div id="level" data-level="{$level}"></div>
+    <div id="course_id" data-course-id="{$courseDetails.id}"></div>
+    <div id="on_line" data-on-line="{$courseDetails.on_line}"></div>
+    <div class="video-details">
+        <div class="video-left">
+            <span>已更新{$courseDetails['course_info_count']}期</span>/<span>共{$courseDetails['course_info_count']}期</span>
+        </div>
+        <div class="video-right">
+            <span>{$courseDetails['buy_num']}人已购买</span>
+        </div>
+    </div>
+    <div style="height: .1rem;background: #F5F5F5;"></div>
+</div>
+<div id="details-box" class="details-box" data-action="tabBox" data-item='content'>
+    <a href="javascript:;" class="on introduce" data-tab data-index="0">介绍</a>
+    <a href="javascript:;" class="directory" data-tab data-index="1">目录</a>
+    <a href="javascript:;" class="comments" data-tab data-index="2" onclick="getCourseComment()">评论</a>
+</div>
+<div class="details-tap">
+    <div class="content" data-itel-box='content'>
+        <div class="introduce-box cur content-cont" data-tab-iteam {if $buy_type_auth == 1}style="padding-bottom:.2rem"{/if}>
+            {$courseDetails['course_t_ex'] ||htmlspecialchars_decode}
+            {if $buy_type_auth !=1}
+                {if $level>0}
+                    <div class="buy">
+                        <a href="javascript:buyCourse('{$courseDetails.id}');" style="width:100%; ">
+                            VIP购买（{$courseDetails.course_vip_money}元）
+                        </a>
+                    </div>
+
+                {else}
+                    <div class="buyer" style="z-index: 999;left: 50%;">
+                        <a href="/index/user/equity2.html" class="vipjia">
+                            VIP购买（{$courseDetails.course_vip_money}元）
+                        </a>
+                    </div>
+                    <div class="buyer">
+                        <a href="javascript:buyCourse('{$courseDetails.id}');" class="yuanjia">
+                            原价购买（{$courseDetails.course_money}元）
+                        </a>
+                    </div>
+
+                {/if}
+            {/if}
+        </div>
+        <div class="directory-box content-cont" data-tab-iteam  {if $buy_type_auth == 1}style="padding-bottom:.2rem"{/if}>
+            <div style="height: .2rem;"></div>
+            <div class="number-box">
+                <div class="number-text" onclick="getCourseInfo('{$courseDetails.id}')" data-sort="1">正序</div>
+                <div class="number-tab">
+                    <div class="isbox"></div>
+                    <div class="negativebox"></div>
+                </div>
+            </div>
+            <ul class="courseinfolist">
+
+
+            </ul>
+
+            {if $buy_type_auth !=1}
+                {if $level>0}
+                    <div class="buy">
+                        <a href="javascript:buyCourse('{$courseDetails.id}');" style="width:100%;">
+                            VIP购买（{$courseDetails.course_vip_money}元）
+                        </a>
+                    </div>
+                {else}
+                    <div class="buyer" style="z-index: 999;left: 50%;">
+                        <a href="/index/user/equity2.html" class="vipjia">
+                            VIP购买（{$courseDetails.course_vip_money}元）
+                        </a>
+                    </div>
+                    <div class="buyer">
+                        <a href="javascript:buyCourse('{$courseDetails.id}');" class="yuanjia">
+                            原价购买（{$courseDetails.course_money}元）
+                        </a>
+                    </div>
+                {/if}
+            {/if}
+        </div>
+        <div class="comments-box content-cont content-cont1" data-tab-iteam>
+            <ul class="commentslist">
+            </ul>
+            <div class="rig-comments-com">
+                <div style="width: 100%;background-color: #fff;position: fixed;bottom: 0;z-index:19950320;border-top: 1px solid #cccccc;">
+                    <div class="comments-com-tem">
+                        <div class="comments-Ten">
+                            <i class="iconfont icon-shuru2"></i>
+                            说点什么吧，也许TA也在看
+                        </div>
+                        <div class="message">
+                            <img src="__STATIC__/index/img/icon_ comment.png?v={:time()}" alt="" style="width: .45rem;">
+                            <span id="course_comment_num">{$course_comment_num ?? 0}</span>
+                        </div>
+                        <div class="give" onclick="setinccourseinfolikenum()">
+                            <img src="__STATIC__/index/img/zan_{$addFabulous}.png?v={:time()}" alt="" style="width: .45rem;">
+                            <span id="dianzan">{$course_info_detail.course_info_like_num ?? 0}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="prd-show-footer">
+</div>
+<div class="share-box" style="display: none;position: fixed;top: 0;z-index:50;">
+
+</div>
+
+
+{/block}
+{block name='script'}
+<script type="text/javascript" src="__STATIC__/index/js/course.js?v={:time()}"></script>
+{if $equipmentType == 'IOS'}
+<script type="text/javascript" src="__STATIC__/index/js/course_ios.js?v={:time()}"></script>
+{else}
+<script type="text/javascript" src="__STATIC__/index/js/course_other.js?v={:time()}"></script>
+{/if}
+<script>
+    {if $libaoshow == 1}
+    // if(getCache('backAction') == 'buyVip'){
+    //     $('[data-auth="qy"]').show();
+    //     $('.bg').show();
+    // }
+    {/if}
+
+    $(function () {
+        var type = {$datatype};
+        if (type == 1) {
+            $('.details-box .directory').addClass('on').siblings().removeClass('on');
+            $('.directory-box').show().siblings().hide();
+            getCourseInfo('{$courseDetails.id}', 1);
+        }
+
+    })
+</script>
+{/block}

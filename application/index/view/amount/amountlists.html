@@ -1,0 +1,63 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="earning-body">
+    <div class="earning-detail-list">
+        <div class="earning-detail-list-top">
+            <div class="earning-detail-list-left">
+                <div id="ser_list" name="ser_list" style="font-size: 13px;text-align: center;line-height:0.8rem;"  data-id="2">
+                    本月
+                </div>
+            </div>
+            <div class="earning-detail-list-right">
+                <h2>结余<span>￥<span id="jcamount"></span></span></h2>
+                <h2>合计<span>￥<span id="totalamount"></span></span></h2>
+            </div>
+        </div>
+        <div class="earning-list">
+            <ul class="amount-list">
+
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<div id="form" style="display: none">
+    <div class="detail-box">
+        <div class="earning-detail-list">
+            <div class="earning-detail-list-top">
+                <div class="earning-detail-list-left">
+                    <select id="selectid">
+                        <option value="1">按月选择</option>
+                        <option value="2">按日选择</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="detail-but">
+                <input type="hidden" name="mothtime" value="">
+                <input type="hidden" name="daystime" value="">
+                <input type="hidden" name="dayetime" value="">
+                <input type="hidden" name="wheretype" value="1">
+                <a href="javascript:;" onclick="getlist(2)">
+                    完成
+                </a>
+        </div>
+    </div>
+    <div id="select_1" _on>选择日期</div>
+    <div class="select-box" style="display: none">
+        <div id="select_2" _an>起始日期</div>
+        至
+        <div id="select_3" _bn>结束日期</div>
+    </div>
+    <div class="shanchuy">
+        <i class="iconfont icon-zuanshi"></i>
+    </div>
+</div>
+
+{/block}
+{block name='script'}
+<script type="text/javascript" src="__STATIC__/index/js/selectDate.js?v={:time()}"></script>
+<script type="text/javascript" src="__STATIC__/index/js/mobileSelect.js?v={:time()}"></script>
+<script type="text/javascript" src="__STATIC__/index/js/amount.js?v={:time()}"></script>
+{/block}

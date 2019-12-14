@@ -1,0 +1,60 @@
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        {if isset($list)}
+        {volist name="list" id='vvo'}
+        {if $level == 0}
+        {if $vvo.course_info_auth ==1}
+        <div class="swiper-slide">
+            <a href="{:url('Course/detail','',false,true)}/id/{$vvo.course_id}" style="color:#000;">
+            <div class="advertising-play-box">
+                <div class="advertising-box-top">
+                    <h3>{$vvo.course_info_title}</h3>
+                    <div class="advertising-bofangbtn">
+                        <img src="__STATIC__/index/img/bofangbtn.png?v={:time()}">
+                    </div>
+                </div>
+                <div class="advertising-box-bot">
+                    {$vvo.course_info_remarks}
+                </div>
+            </div>
+            </a>
+        </div>
+
+        {else}
+        <div class="swiper-slide">
+            <div class="advertising-play-box">
+                <div class="advertising-box-top">
+                    <h3>{$vvo.course_info_title}</h3>
+                    <div class="advertising-bofangbtn">
+                        <img src="__STATIC__/index/img/suo.png?v={:time()}">
+                    </div>
+                </div>
+                <div class="advertising-box-bot">
+                    {$vvo.course_info_remarks}
+                </div>
+            </div>
+        </div>
+        {/if}
+        {else}
+        <div class="swiper-slide">
+            <a href="{:url('Course/detail','',false,true)}/id/{$vvo.course_id}" style="color:#000;">
+                <div class="advertising-play-box">
+                    <div class="advertising-box-top">
+                        <h3>{$vvo.course_info_title}</h3>
+                        <div class="advertising-bofangbtn">
+                            <img src="__STATIC__/index/img/bofangbtn.png?v={:time()}">
+                        </div>
+                    </div>
+                    <div class="advertising-box-bot">
+                        {$vvo.course_info_remarks}
+                    </div>
+                </div>
+            </a>
+        </div>
+        {/if}
+        {/volist}
+        {else}
+        暂无数据
+        {/if}
+    </div>
+</div>

@@ -1,0 +1,4 @@
+
+    {volist name='courseList' id='vo'}
+    <option value="{$vo.id}" {if $Request.param.course_id == $vo.id}selected{/if}>{$vo.course_title}</option>
+    {/volist}

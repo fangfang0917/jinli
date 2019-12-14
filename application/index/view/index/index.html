@@ -1,0 +1,176 @@
+{extend name="template/base" /}
+{block name="content"}
+<style>
+    .floating-box {
+        display: none;
+    }
+</style>
+<!-- 搜索 -->
+<a href="{:url('Form/index')}">
+    <div class="search">
+        <i class="iconfont icon-sousuo"></i>
+        <input type="text" name="" placeholder="搜索课程/老师/专题" readonly class="index-shousuo">
+    </div>
+</a>
+<!-- 轮播内容 -->
+<div class="banner">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {volist name="banner" id="vo"}
+            <div class="swiper-slide">
+                <a href="{if isset($vo.banner_url)}{$vo.banner_url}{else}javascript:;{/if}">
+                    <img src="{$vo.banner_pic}"/>
+                </a>
+            </div>
+            {/volist}
+        </div>
+    </div>
+</div>
+
+<!---->
+<!--三个分类-->
+<div class="thific">
+    <div class="innerific">
+        <a href="{:url('user/equityshow')}">
+            <img src="__STATIC__/index/img/home/homeicon_vip.png" alt="">
+            <p>会员专区</p>
+        </a>
+        <a href="{:url('goodslist/index',array('id'=>5))}">
+            <img src="__STATIC__/index/img/home/homeicon_Offline.png" alt="">
+            <p>线下营</p>
+        </a>
+        <a href="{:url('goodslist/index',array('id'=>10))}">
+
+        <img src="__STATIC__/index/img/home/homeicon_kid.png" alt="">
+            <p>锦鲤KID</p>
+        </a>
+    </div>
+</div>
+<!--特别推荐-->
+<div class="spectj">
+    <p class="pone">特别推荐</p>
+    <a href="{:url('course/detail',array('id'=>$tuijian['id']))}">
+        <div class="done"><img src="{$courseBanner['banner_pic']}" alt=""></div>
+        <div class="dtwo">
+            <p class="pon">事业发展</p>
+            <p class="pon">魅力修炼</p>
+            <p class="pon">家庭幸福</p>
+            <p class="pon">国际视野</p>
+            <p class="ptwo">限时免费</p>
+        </div>
+        <p class="pth">{$tuijian['course_look']}人已加入学习</p>
+    </a>
+</div>
+<!--灰条-->
+<div class="ht"></div>
+<!--锦鲤优选-->
+{volist name='classDate' id='vo'}
+    {if count($vo['courseData'])>0}
+        {if $vo['course_module'] == 2}
+            <div class="zchoose">
+                <a class="aone" href="{:url('goodslist/index',array('id'=>$vo.id))}">
+                    <p class="pone">{$vo['course_classify_title']}</p>
+                    <p class="ptwo">
+                        <span>更多</span>
+                        <img src="__STATIC__/index/img/home/jiantou.png" alt="">
+                    </p>
+                </a>
+                <div class="zxjclasslist">
+                    {volist name='$vo.courseData' id='r'}
+                    <a href="{:url('course/detail',array('id'=>$r['id']))}">
+                        <div class="done">
+                            <div class="zxjtopimg">
+                                <img class="innertopimg" src="{$r.course_pic1}" alt="">
+                                <img class="zxjqg" src="{$r.course_pic_jiao ?? ''}" alt="">
+                                <p class="ppsee"><img src="__STATIC__/index/img/home/yan.png" alt=""><span>{$r.course_look}</span>人已观看</p>
+                            </div>
+                            <div class="innerbotword">
+                                <p class="ptitle">{$r.course_title}</p>
+                                {if $r.is_buy == 1}
+                                <p class="zxjvip"></p>
+
+                                <P class="zxjyj">已购买</P>
+
+                                {else}
+                                <p class="zxjvip">VIP ￥{$r.course_vip_money}</p>
+                                <P class="zxjyj">原价<span>{$r.course_money}</span>元</P>
+                                {/if}
+                            </div>
+                        </div>
+                    </a>
+                    {/volist}
+                </div>
+            </div>
+            <div class="ht"></div>
+        {else}
+           <div class="zxjyx">
+        <!--<p class="ptitle">{$vo['course_classify_title']}</p>-->
+               <a class="aone" href="{:url('goodslist/index',array('id'=>$vo.id))}">
+                   <p class="pone">{$vo['course_classify_title']}</p>
+                   <p class="ptwo">
+                       <span>更多</span>
+                       <img src="__STATIC__/index/img/home/jiantou.png" alt="">
+                   </p>
+               </a>
+        <div class="zxjyxklist">
+            {volist name='$vo.courseData' id='r'}
+            <a href="{:url('course/detail',array('id'=>$r['id']))}">
+                <div class="done">
+                    <div class="zxjleftimg">
+                        <img class="zxjbigimg" src="{$r.course_pic}" alt="">
+                        <img class="zxjxsqg" src="{$r.course_pic_jiao ?? ''}" alt="">
+                        <div class="zxjsee">
+                            <img src="__STATIC__/index/img/home/yan.png" alt="">
+                            <span>{$r.course_look}</span>人已观看
+                        </div>
+                    </div>
+                    <div class="zrightword">
+                        <p class="pone">{$r.course_title}</p>
+                        <div class="zbotword">
+                            <p class="zpvip">VIP ￥<span>{$r.course_vip_money}</span></p>
+                            <p class="zyj">原价 <span>{$r.course_money}元</span></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            {/volist}
+    </div>
+</div>
+            <div class="ht"></div>
+        {/if}
+    {/if}
+{/volist}
+
+<!--灰条-->
+
+<!--严选课-->
+
+<!---->
+
+<!-- 底部内容 -->
+<div class="footer">
+    <a href="{:url('index/index')}">
+        <div class="upgrade-tool-img">
+            <img src="__STATIC__/index/img/mm1.png?v={:time()}">
+        </div>
+
+        锦鲤MoM
+    </a>
+    <a href="{:url('order/index')}">
+        <div class="upgrade-tool-img">
+            <img src="__STATIC__/index/img/kd2.png?v={:time()}">
+        </div>
+        我的课程
+    </a>
+    <a href="{:url('user/index')}">
+        <div class="upgrade-tool-img">
+            <img src="__STATIC__/index/img/user2.png?v={:time()}">
+        </div>
+        个人中心
+    </a>
+</div>
+{/block}
+{block name='script'}
+<script type="text/javascript" src="__STATIC__/index/js/index.js?v={:time()}"></script>
+{/block}

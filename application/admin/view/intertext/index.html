@@ -1,0 +1,142 @@
+{extend name="template/base" /}
+{block name="nav"}{/block}
+{block name="content"}
+<div class="page-container">
+    <form class="form form-horizontal" id="form" method="post" action="{:\\think\\Request::instance()->baseUrl()}">
+        <input type="hidden" name="id" value="{$vo.id ?? ''}">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>版本号：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <input type="text" class="input-text" name="about_bb" value="{$vo.about_bb ?? ''}"  datatype="*" nullmsg="版本号不能为空">
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>品牌LOGO：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <input type="hidden" name="about_pic" class="input-text" value="{$vo.about_pic ?? ''}">
+                <input type="file" id="cover" name="cover" style="display: none">
+                <label for="cover" >
+                    {if condition="isset($vo)"}
+                    {if condition="$vo.about_pic"}
+                    <img src="{$vo.about_pic}" style="width: 100px;height:100px">
+                    {else/}
+                    <span class="Hui-iconfont" style="font-size: 60px">&#xe642;</span>
+                    {/if}
+                    {else/}
+                    <span class="Hui-iconfont" style="font-size: 60px">&#xe642;</span>
+                    {/if}
+                    <span >(上传图片大小为 <i style="color: red"> 240px X 240px</i>)</span>
+
+                </label>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>品牌介绍：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <textarea id="aboutjl" name="aboutjl" value="" datatype="*" nullmsg="品牌介绍不能为空">{$vo.aboutjl ?? ''}</textarea>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>用户协议说明：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <textarea id="aboutxy"  name="aboutxy" value="" datatype="*" nullmsg="用户协议说明不能为空">{$vo.aboutxy ?? ''}</textarea>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>平台协议说明：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <textarea id="plat"  name="plat" value="" datatype="*" nullmsg="平台协议说明不能为空">{$vo.plat ?? ''}</textarea>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>商务合作：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <textarea id="abouthz"  name="abouthz" value="" datatype="*" nullmsg="商务合作不能为空">{$vo.abouthz ?? ''}</textarea>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <button type="submit" class="btn btn-primary radius">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+                <button type="button" class="btn btn-default radius ml-20" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__LIB__/jquery.ajaxSubmit.js"></script>
+<script type="text/javascript" charset="utf-8" src="__LIB__/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__LIB__/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__LIB__/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script>
+    $(function () {
+        var ue = UE.getEditor('abouthz',{
+            toolbars: [["fullscreen","source","undo",'fontsize',"redo","bold","italic","underline","fontborder","strikethrough","superscript","subscript","insertunorderedlist","insertorderedlist","justifyleft","justifycenter","justifyright","justifyjustify","removeformat","simpleupload","snapscreen","emotion","attachment"]]
+        });
+
+        var ue = UE.getEditor('aboutxy',{
+            toolbars: [["fullscreen","source","undo",'fontsize',"redo","bold","italic","underline","fontborder","strikethrough","superscript","subscript","insertunorderedlist","insertorderedlist","justifyleft","justifycenter","justifyright","justifyjustify","removeformat","simpleupload","snapscreen","emotion","attachment"]]
+        });
+
+        var ue = UE.getEditor('aboutjl',{
+            toolbars: [["fullscreen","source","undo",'fontsize',"redo","bold","italic","underline","fontborder","strikethrough","superscript","subscript","insertunorderedlist","insertorderedlist","justifyleft","justifycenter","justifyright","justifyjustify","removeformat","simpleupload","snapscreen","emotion","attachment"]]
+        });
+        var ue = UE.getEditor('plat',{
+            toolbars: [["fullscreen","source","undo",'fontsize',"redo","bold","italic","underline","fontborder","strikethrough","superscript","subscript","insertunorderedlist","insertorderedlist","justifyleft","justifycenter","justifyright","justifyjustify","removeformat","simpleupload","snapscreen","emotion","attachment"]]
+        });
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form").Validform({
+            tiptype:2,
+            ajaxPost:true,
+            showAllError:true,
+            callback:function(ret){
+                ajax_progress(ret);
+            }
+        });
+    })
+
+
+    $('#cover').change(function(){
+        var this_obj  = $(this);
+        this_obj.wrap("<form action='{:url(\'course/savePic\',\'\',false,true)}' method='post' id='file_upload' enctype='multipart/form-data'></form>");
+        //防止上传图片时，出现卡顿现象
+        var loading = layer.load(3, {shade: [0.8, '#393D49']});
+
+        $('#file_upload').ajaxSubmit({
+            dataType:'json',
+            success:function (data) {
+                this_obj.unwrap();
+                layer.close(loading);
+                if(data.state == 1){
+                    this_obj.next().html("<img src='"+ data.path +"'  style='width:100px;height:100px'>");
+                    $('input[name=imgurl]').val(data.path);
+                    this_obj.prev().attr('value',data.path);
+                }else{
+                    layer.msg(data.reason,{icon:5,time:1000});
+                }
+            },
+            error:function (err) {
+                console.log(err);
+                this_obj.unwrap();
+                layer.close(loading);
+                layer.msg('网络错误，请重试！',{icon:5,time:1000});
+            }
+        });
+    });
+
+
+</script>
+{/block}

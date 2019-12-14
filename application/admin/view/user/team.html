@@ -1,0 +1,88 @@
+{extend name="template/base" /}
+{block name='style'}
+<style>
+  .counts{
+      float: left;
+      width: 10%;
+      padding-right:10px ;
+  }
+</style>
+{/block}
+{block name="content"}
+<div class="page-container">
+    <form class="mb-20" method="get" action="{:\\think\\Url::build($Request.action)}">
+        <input type="text" class="input-text" style="width:250px" placeholder="用户昵称" name="nick_name" value="{$Request.param.nick_name}">
+        <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray">
+
+        <div class="counts">
+            直邀: <span>{$pcount}</span>
+        </div>
+        <div class="counts">
+            间邀: <span>{$ppcount}</span>
+        </div>
+        <div class="counts">
+            {$levelname['level0']}: <span>{$counts.p}</span>
+        </div>
+        <div class="counts">
+            {$levelname['level1']}: <span>{$counts.vip}</span>
+        </div>
+        <div class="counts">
+            {$levelname['level2']}: <span>{$counts.t}</span>
+        </div>
+        <div class="counts">
+            {$levelname['level3']}: <span>{$counts.c}</span>
+        </div>
+        <div class="counts">
+            {$levelname['level4']}: <span>{$counts.h}</span>
+        </div>
+        <div class="counts">
+            {$levelname['level5']}: <span>{$counts.s}</span>
+        </div>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th width="100">昵称</th>
+            <th width="150">手机号</th>
+            <th width="150">等级</th>
+            <th width="150">直推ID</th>
+            <th width="150">间推ID</th>
+            <th width="150">账户资金</th>
+            <th width="150">加入时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td>{$vo.nick_name}</td>
+            <td>{$vo.phone}</td>
+            <td>{if $vo.level == 0}{$levelname['level0']}
+                {elseif $vo.level == 1}{$levelname['level1']}
+                {elseif $vo.level == 2}{$levelname['level2']}
+                {elseif $vo.level == 3}{$levelname['level3']}
+                {elseif $vo.level == 4}{$levelname['level4']}
+                {else}{$levelname['level5']}
+                {/if}
+            </td>
+            <td>{$vo.pid}</td>
+            <td>{$vo.p_pid}</td>
+            <td>{$vo.amount}</td>
+            <td>{:date('Y-m-d H:i:s',$vo.add_time)}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}
+{block name='script'}
+<script>
+    function setchoose(id, name) {
+        window.parent.choose(id, name);
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.layer.close(index);
+    }
+</script>
+{/block}

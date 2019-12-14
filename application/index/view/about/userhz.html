@@ -1,0 +1,11 @@
+{extend name="template/base" /}
+{block name="content"}
+<style>
+    .agreement-box img{
+        width: 100%;
+    }
+</style>
+<div class="agreement-box" style="font-size: 13px">
+    {$about.abouthz ||htmlspecialchars_decode}
+</div>
+{/block}

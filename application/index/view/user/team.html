@@ -1,0 +1,136 @@
+{extend name="template/base"/}
+{block name="content"}
+
+<div class="team-header">
+    <div class="team-header-top">
+        <div class="team-header-imgbox">
+            {if $userinfo.head_type == 1}
+            <img src="{$userinfo.head}" style="width: 100%">
+            {else}
+            <img src="__IMG__/{$userinfo.head}" style="width: 100%">
+            {/if}
+        </div>
+        <div class="team-header-txt">
+            <h1>{$userinfo.nick_name}</h1>
+            <h2>所属上级：{$pname}</h2>
+        </div>
+    </div>
+    <div class="team-header-bot">总人数：{$team.teamcount}</div>
+</div>
+<div class="team-nav" data-action="tabBox" data-item='content'>
+    <a href="javascript:;" class="on" data-tab>待发展会员</a>
+    <a href="javascript:;" data-tab>直邀会员</a>
+    <a href="javascript:;" data-tab>间邀会员</a>
+</div>
+<div class="team-list" data-itel-box='content'>
+    <div class="straight on" data-tab-iteam>
+        <div class="straight-txt">当前人数：{$team.fteamcount}人</div>
+        <ul>
+            {if isset($team.fteam)}
+            {if count($team.fteam)>0}
+            {volist name='$team.fteam' id='vo'}
+            <li style="background-color: #fff;">
+                <div class="straight-con">
+                    <div class="straight-img">
+                        {if $vo.head_type == 1}
+                        <img src="{$vo.head}">
+                        {else}
+                        <img src="__IMG__/{$vo.head}">
+                        {/if}
+
+                    </div>
+                    <div class="straight-box">
+                        <h1>{$vo.nick_name}</h1>
+                        <h2>{:date('Y-m-d',$vo.add_time)}</h2>
+                    </div>
+                </div>
+            </li>
+            {/volist}
+            {else}
+            <li>
+                <div class="team-num">
+                    <div class="team-imgbox">
+                        <img src="__STATIC__/index/img/shuigang.png">
+                    </div>
+                    <div class="team-con">您还未组建自己的团队~</div>
+                </div>
+            </li>
+            {/if}
+            {/if}
+        </ul>
+    </div>
+    <div class="straight" data-tab-iteam>
+        <div class="straight-txt">当前人数：{$team.teamzcount}人</div>
+        <ul>
+            {if isset($team.teamz)}
+            {if count($team.teamz)>0}
+            {volist name='$team.teamz' id='vo'}
+            <li>
+                <div class="straight-con">
+                    <div class="straight-img">
+                        {if $vo.head_type == 1}
+                        <img src="{$vo.head}">
+                        {else}
+                        <img src="__IMG__/{$vo.head}">
+                        {/if}
+                    </div>
+                    <div class="straight-box">
+                        <h1>{$vo.nick_name}</h1>
+                        <h2>{:date('Y-m-d',$vo.add_time)}</h2>
+                    </div>
+                </div>
+            </li>
+            {/volist}
+            {else}
+            <li>
+                <div class="team-num">
+                    <div class="team-imgbox">
+                        <img src="__STATIC__/index/img/shuigang.png">
+                    </div>
+                    <div class="team-con">您还未组建自己的团队~</div>
+                </div>
+            </li>
+
+            {/if}
+            {/if}
+        </ul>
+    </div>
+    <div class="straight" data-tab-iteam>
+        <div class="straight-txt">当前人数：{$team.teamjcount}人</div>
+        <ul>
+            {if isset($team.teamj)}
+            {if count($team.teamj)>0}
+            {volist name='$team.teamj' id='vo'}
+            <li>
+                <div class="straight-con">
+                    <div class="straight-img">
+                        {if $vo.head_type == 1}
+                        <img src="{$vo.head}">
+                        {else}
+                        <img src="__IMG__/{$vo.head}">
+                        {/if}
+
+                    </div>
+                    <div class="straight-box">
+                        <h1>{$vo.nick_name}</h1>
+                        <h2>{:date('Y-m-d',$vo.add_time)}</h2>
+                    </div>
+                </div>
+            </li>
+            {/volist}
+            {else}
+            <li>
+                <div class="team-num">
+                    <div class="team-imgbox">
+                        <img src="__STATIC__/index/img/shuigang.png">
+                    </div>
+                    <div class="team-con">您还未组建自己的团队~</div>
+                </div>
+            </li>
+
+            {/if}
+            {/if}
+        </ul>
+    </div>
+</div>
+{/block}

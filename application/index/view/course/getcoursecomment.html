@@ -1,0 +1,31 @@
+{if isset($commentlist)}
+    {if count($commentlist)>0}
+        {volist name='commentlist' id='vo'}
+        <li class="comments-box-li">
+            <div class="comments-imgbox">
+                {if $vo.head_type == 1}
+                <img src="{$vo.head}" style="width:100%;">
+
+                {else}
+                <img src="{$vo.head}" style="width:100%;">
+                {/if}
+            </div>
+            <div class="comments-text">
+                <div class="comments-text-tab">
+                    <h2>{$vo.nick_name}</h2>
+                    <div class="comments-tim">
+                        <span>{:date('Y',$vo.add_time)}-</span><span>{:date('m',$vo.add_time)}-</span><span>{:date('d',$vo.add_time)}</span>
+                    </div>
+                </div>
+                <div class="comments-con">
+                    {$vo.course_comment_content}
+                </div>
+            </div>
+        </li>
+        {/volist}
+    {else}
+            <div style="position: absolute;left: 50%;top:50%;margin-top: -50px;margin-left: -50px;width: 100px;height: 100px;text-align: center;">
+                暂无评论
+            </div>
+    {/if}
+{/if}

@@ -1,0 +1,9 @@
+<div class="share-tabimg b">
+    {volist name='picData' id='vo'}
+    {if $key == 0}
+    <img src="__STATIC__/uploads/share/{$vo['pic']}?v={:time()}" alt="" data-i="1" data-index="{$key}" style="width: 100%;">
+    {else}
+    <img src="__STATIC__/uploads/share/{$vo['pic']}?v={:time()}" alt="" data-i="0" data-index="{$key}" style="width: 100%;">
+    {/if}
+    {/volist}
+</div>

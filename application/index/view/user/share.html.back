@@ -1,0 +1,79 @@
+{extend name="template/base"/}
+{block name='style'}
+<style>
+    .User_share{
+        background-color: #F5F5F5 !important;
+    }
+    .tiphb{
+        font-size: .35rem;
+        background: #ffffff;
+        padding: .2rem;
+        color: #666666;
+    }
+</style>
+{/block}
+{block name="content"}
+{if $level > 0}
+<div class="share-com">
+    {if $level == 1}
+    <div class="tiphb">选择海报模板</div>
+    {elseif in_array($level,[2,3,4])}
+    <div class="share-nav">
+        <a style="width: 50%;"  href="javascript:;" class="on" data-type="1">会员</a>
+        <a style="width: 50%;"  href="javascript:;" data-type="2">锦鲤大使</a>
+    </div>
+    {elseif $level == 5}
+    <div class="share-nav">
+        <a href="javascript:;" class="on" data-type="1">会员</a>
+        <a href="javascript:;" data-type="2">锦鲤大使</a>
+        <a href="javascript:;" data-type="3">{$levelname['level5']}</a>
+    </div>
+    {/if}
+    <div class="share-rules"  onclick="getequity()">
+        规则查看
+    </div>
+    <div class="share-txt">
+        <h1>长按图片保存至相册</h1>
+        <div class="share-tab">
+        </div>
+        <div class="share-btn">
+            <div class="share-btnleft">
+                <div class="share-btnleft-img"></div>
+                <span>上一张</span>
+            </div>
+            <div class="share-btnright">
+                <div class="share-btnleft-img"></div>
+                <span>下一张</span>
+            </div>
+        </div>
+    </div>
+    <div class="share-footer" style="display:none;">
+        <a href="javascript:;">页面分享</a>
+    </div>
+    <div class="FenXiang-duize-tanchuang">
+        <div class="FenXiang-duize-tanchuang-top">
+            <h1>规则查看</h1>
+            <div class="FenXiang-duize-tanchuang-hide" onclick="closeq()"></div>
+        </div>
+        <div class="FenXiang-duize-tanchuang-con"  style="text-align: left">
+
+        </div>
+    </div>
+</div>
+{else}
+<div class="polite-body" style="height: 100%">
+    <div class="polite-imgbox">
+        <img src="__STATIC__/index/img/xing.png"/>
+    </div>
+    <div class="polite-text">
+        您还不是会员
+    </div>
+    <div class="polite-a">
+        <a href="javascript:buyVip();">立即成为会员</a>
+    </div>
+</div>
+{/if}
+{/block}
+{block name='script'}
+<script type="text/javascript" src="__STATIC__/index/js/share.js?v={:time()}"></script>
+{/block}

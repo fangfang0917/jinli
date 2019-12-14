@@ -1,0 +1,98 @@
+{extend name="template/base" /}
+{block name="nav"}{/block}
+{block name="content"}
+<div class="page-container">
+    <form class="form form-horizontal" id="form" method="post" action="{:\\think\\Request::instance()->baseUrl()}">
+        <input type="hidden" name="id" value="{$vo.id ?? ''}">
+        <!--<div class="row cl">-->
+            <!--<label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>等级：</label>-->
+            <!--<div class="formControls col-xs-6 col-sm-6">-->
+                <!--<select name="share_level" id="" class="select-box">-->
+                    <!--<option value="0">请选择模板等级</option>-->
+                    <!--<option value="1" {if isset($vo)}{if $vo.share_level==1}selected{/if}{/if}>{$levelname['level1']}</option>-->
+                    <!--<option value="4" {if isset($vo)}{if $vo.share_level==4}selected{/if}{/if}>代理</option>-->
+                    <!--<option value="5" {if isset($vo)}{if $vo.share_level==5}selected{/if}{/if}>{$levelname['level5']}</option>-->
+                <!--</select>-->
+            <!--</div>-->
+            <!--<div class="col-xs-3 col-sm-3"></div>-->
+        <!--</div>-->
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>分享模板图：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <input type="hidden" name="share_pic" class="input-text" value="{$vo.share_pic ?? ''}">
+                <input type="file" id="cover" name="cover" class="cover_pic" style="display: none">
+                <label for="cover">
+                    {if condition="isset($vo)"}
+                    {if condition="$vo.share_pic"}
+                    <img src="{$vo.share_pic}" style="width:200px;">
+                    {else/}
+                    <span class="Hui-iconfont" style="font-size: 60px">&#xe642;</span>
+                    {/if}
+                    {else/}
+                    <span class="Hui-iconfont" style="font-size: 60px">&#xe642;</span>
+                    {/if}
+                    <span >(上传图片大小为 <i style="color: red"> 420px X 747px</i>)</span>
+                </label>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <button type="submit" class="btn btn-primary radius">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+                <button type="button" class="btn btn-default radius ml-20" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__LIB__/jquery.ajaxSubmit.js"></script>
+<script>
+    $(function () {
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form").Validform({
+            tiptype: 2,
+            ajaxPost: true,
+            showAllError: true,
+            callback: function (ret) {
+                ajax_progress(ret);
+            }
+        });
+    })
+
+    $('.cover_pic').change(function () {
+        var this_obj = $(this);
+        this_obj.wrap("<form action='{:url(\'course/savePic\',\'\',false,true)}' method='post' id='file_upload' enctype='multipart/form-data'></form>");
+        //防止上传图片时，出现卡顿现象
+        var loading = layer.load(3, {shade: [0.8, '#393D49']});
+
+        $('#file_upload').ajaxSubmit({
+            dataType: 'json',
+            success: function (data) {
+                this_obj.unwrap();
+                layer.close(loading);
+                if (data.state == 1) {
+                    this_obj.next().html("<img src='" + data.path + "'  style='width:200px;'>");
+                    $('input[name=imgurl]').val(data.path);
+                    this_obj.prev().attr('value', data.path);
+                } else {
+                    layer.msg(data.reason, {icon: 5, time: 1000});
+                }
+            },
+            error: function (err) {
+                console.log(err);
+                this_obj.unwrap();
+                layer.close(loading);
+                layer.msg('网络错误，请重试！', {icon: 5, time: 1000});
+            }
+        });
+    });
+</script>
+{/block}

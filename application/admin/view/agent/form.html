@@ -1,0 +1,17 @@
+<form class="mb-20" id="form" method="get" action="{:\\think\\Url::build($Request.action)}">
+    <input type="text" class="input-text" style="width:150px" placeholder="用户昵称" name="nick_name" value="{$Request.param.nick_name}">
+    <input type="text" class="input-text" style="width:150px" placeholder="手机号" name="phone" value="{$Request.param.phone}">
+    <input type="hidden" name="type" value="1">
+    <select name="level" class="select-box" style="height: 31px;width:150px;">
+        <option value="0" {if $Request.param.level == 0}selected{/if}>请选择人员等级</option>
+        <option value="3" {if $Request.param.level == 3}selected{/if}>{$levelname['level2']}</option>
+        <option value="4" {if $Request.param.level == 4}selected{/if}>{$levelname['level3']}</option>
+        <option value="5" {if $Request.param.level == 5}selected{/if}>{$levelname['level4']}</option>
+        <option value="6" {if $Request.param.level == 6}selected{/if}>{$levelname['level5']}</option>
+    </select>
+    <input type="text" class="input-text" style="width: 150px" placeholder="开始时间" readonly  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="start_time"  value="{$Request.param.start_time}">
+    <input type="text" class="input-text" style="width: 150px" placeholder="结束时间" readonly  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="end_time"  value="{$Request.param.end_time}">
+
+    <div class="btn btn-success" id="" onclick="ext()" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</div>
+    <div class="btn btn-success"  onclick="ex()">导出Excel</div>
+</form>

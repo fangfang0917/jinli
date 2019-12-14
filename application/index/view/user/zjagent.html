@@ -1,0 +1,51 @@
+{extend name="template/base"/}
+{block name='style'}
+<link rel="stylesheet" type="text/css" href="__STATIC__/index/ydui/css/ydui.css?v={:time()}">
+<style>
+    .form-box, body {
+        background-color: #ffffff !important;
+    }
+
+    .self-li-i {
+        border-bottom: 1px solid #EEEEEE;
+        position: relative;
+    }
+
+    .self-li-i .new {
+        padding-left: .38rem;
+        text-align: left !important;
+        width: 70%;
+    }
+    .ttitle {
+        line-height: 0.94rem;
+        width: 25%;
+        font-size: .34rem;
+        padding-left: 0.34rem;
+    }
+
+</style>
+{/block}
+{block name="content"}
+<div class="form-body">
+    <div class="form-box">
+        <ul class="form-ul">
+            <li class="self-li">
+                <span class="ttitle">手机号</span><input class="new" type="number" name="phone"
+                                                      readonly  value="{$rigU['phone'] ?? ''}"/></li>
+            <li class="self-li-i">
+                <span class="ttitle">真实姓名</span> <input class="new" type="text" name="realnamee" placeholder="请填写真是姓名" value=""/>
+            </li>
+            <li class="self-li-i">
+                <span class="ttitle">联系地址</span><input class="new" type="text" name='addr' placeholder="请填写联系地址" value=""/>
+            </li>
+            <li class="complete p">
+                <button class="btn-disabled r on" _zjagent style="pointer-events: auto">完成</button>
+            </li>
+        </ul>
+    </div>
+</div>
+{/block}
+{block name='script'}
+<script src="__STATIC__/index/ydui/js/ydui.js?v={:time()}"></script>
+<script src="__STATIC__/index/js/user.js?v={:time()}"></script>
+{/block}

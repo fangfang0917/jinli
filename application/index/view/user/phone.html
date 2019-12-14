@@ -1,0 +1,66 @@
+{extend name="template/base"/}
+{block name='style'}
+<link rel="stylesheet" type="text/css" href="__STATIC__/index/ydui/css/ydui.css?v={:time()}">
+<style>
+    .form-box,body{
+        background-color: #ffffff !important;
+    }
+    .self-li-i{
+        border-bottom: 1px solid #EEEEEE;
+        position: relative;
+    }
+    .self-li-i .new{
+        padding-left: .38rem;
+        text-align: left !important;
+    }
+</style>
+{/block}
+{block name="content"}
+{if $userinfo.phone !=''}
+<div class="form-body">
+    <div class="form-box">
+        <ul class="form-ul">
+            <li class="self-li">
+                <input class="new" type="number" name="phone" placeholder="请输入手机号" value="{$rigU['phone'] ?? ''}"/>
+            </li>
+            <li class="yzm-li">
+                <input class="new" type="number" name="code" placeholder="请输入验证码" id='codema' value="">
+                <button class="self-btn" id="J_GetCode">发送验证码</button>
+            </li>
+            <li class="complete p">
+                <button class="btn-disabled upphone r" _phone>完成</button>
+            </li>
+        </ul>
+    </div>
+</div>
+{else}
+<div class="form-body">
+    <div class="form-box">
+        <ul class="form-ul">
+            <li class="self-li">
+                <input class="new" type="number" name="phone" placeholder="请输入手机号" value=""/>
+            </li>
+            <li class="yzm-li">
+                <input class="new" type="number" name="code" placeholder="请输入验证码" id='codema' value="">
+                <button class="self-btn" id="J_GetCode">发送验证码</button>
+            </li>
+            <li class="complete p">
+                <button class="btn-disabled r saveUppButton" _phone>完成</button>
+            </li>
+            <li>
+                <div class="Select" style="padding: 0.2rem 0.38rem 0">
+                    <div class="Select-but">
+                        <img src="__STATIC__/index/img/duigou.png">
+                    </div>
+                    <span>同意遵循<a href="{:url('about/plat')}">《锦鲤MoM平台用户协议》</a></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{/if}
+{/block}
+{block name='script'}
+<script src="__STATIC__/index/ydui/js/ydui.js?v={:time()}"></script>
+<script src="__STATIC__/index/js/user.js?v={:time()}"></script>
+{/block}

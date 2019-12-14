@@ -1,0 +1,71 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    {include file='form' /}
+    <div class="cl pd-5 bg-1 bk-gray">
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th width="100">账变人</th>
+            <th width="150">账变金额</th>
+            <th width="150">账变时间</th>
+            <th width="150">类型</th>
+            <th width="150">是否需审核</th>
+            <th width="150">审核状态</th>
+            <th width="150">审核时间</th>
+            <th width="150">是否是推荐返点</th>
+            <th width="150">返点人</th>
+            <th width="150">描述</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td>{$vo.nick_name}</td>
+            <td>{if $vo.type == 1 || $vo.type == 2 || $vo.type == 5 || $vo.type == 4}<span style="color: #00B83F">+{$vo.amount}</span>{else}<span
+                    style="color: red">-{$vo.amount}</span>{/if}
+            </td>
+            <td>{:date('Y-m-d H:i:s',$vo.add_time)}</td>
+            <td>{if $vo.type == 1}直推购买返点{elseif $vo.type == 2}间推购买返点{elseif $vo.type== 3}提现{elseif $vo.type ==
+                4}推荐代理奖{elseif $vo.type == 5}服务奖{/if}
+            </td>
+            <td>{if $vo.type == 1 || $vo.type == 2 || $vo.type == 5 || $vo.type == 4}<span style="color:red ">否</span>{else}<span
+                    style="color: #00B83F">是</span>{/if}
+            </td>
+            <td>{if $vo.type == 1 || $vo.type == 2 || $vo.type == 5 || $vo.type == 4}
+                <span style="color: #00B83F">--</span>
+                {else}
+                {if $vo.type_status == 1}
+                <span style="color: #00B83F">已审核并发放</span>
+                {elseif $vo.type_status == 2}
+                <span style="color: red">审核未通过退回</span>
+                {else}
+                <span>待审核</span>
+                {/if}
+                {/if}
+            </td>
+            <td>{if $vo.type == 1 || $vo.type == 2 || $vo.type == 5 || $vo.type == 4}<span
+                    style="color: #00B83F">--</span>{else}{:date('Y-m-d H:i:s',$vo.up_time)}{/if}
+            </td>
+            <td>{if $vo.type == 1 || $vo.type == 2|| $vo.type == 5 || $vo.type == 4}<span style="color: #00B83F">是</span>{else}否{/if}
+            </td>
+            <td>{if $vo.type == 1 || $vo.type == 2|| $vo.type == 5 || $vo.type == 4}<span style="color: #00B83F">{$vo.snick_name}</span>{else}--{/if}
+            </td>
+            <td>{$vo.remarks}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}
+{block name='script'}
+<script>
+    function setchoose(id, name) {
+        window.parent.choose(id, name);
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.layer.close(index);
+    }
+</script>
+{/block}

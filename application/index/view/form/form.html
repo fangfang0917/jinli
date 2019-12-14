@@ -1,0 +1,61 @@
+<!-- 搜索列表 -->
+{if isset($formlist)}
+{if $count > 0}
+<ul>
+    <!-- 课程开始 -->
+    {volist name='formlist' id='vo'}
+    <li>
+        <a href="{:url('Course/detail','',false,true)}/id/{$vo.id}">
+            <div class="detailsimg">
+                <img src="{$vo.course_pic}">
+                <div class="preferential">
+                    限时优惠
+                </div>
+                <div class="detailsimgbox">
+                    <i class="iconfont icon-chakan"></i>
+                    <span>
+                        {$vo.course_look}人已观看
+                    </span>
+                </div>
+            </div>
+            <div class="detailstap">
+                <h1>{$vo.course_title}</h1>
+                <span>
+                             {$vo.course_remark}
+		   					</span>
+                <div class="detailstap_bot">
+                    <!--{$vo.buy_type}-->
+                    <!--{$vo.on_line}-->
+                    {if $vo.buy_type == 1}
+                        {if $vo.on_line == 2}
+                        <div class="detailstap_left"
+                             style="color: #999999;font-size: .28rem;font-weight: 400;font-family:PingFangSC-Regular,PingFangSC;">
+                            已报名
+                        </div>
+                        {else}
+                        <div class="detailstap_left"
+                             style="color: #999999;font-size: .28rem;font-weight: 400;font-family:PingFangSC-Regular,PingFangSC;">
+                            已购买
+                        </div>
+                        {/if}
+                    {else}
+                    <div class="detailstap_left">VIP ¥{$vo.course_vip_money}</div>
+                    <div class="detailstap_right">原价{$vo.course_money}元</div>
+                    {/if}
+                </div>
+            </div>
+        </a>
+    </li>
+    {/volist}
+    <!-- 课程结束 -->
+
+
+</ul>
+{else}
+<!-- 没有结果 -->
+<div class="search-none">
+    <img src="__STATIC__/index/img/sousuo.png?v={:time()}" style="width: 46%;">
+    <div style="font-size: .3rem;text-align: center;width: 100%;margin-top: .3rem;color: #999999;">未搜索到相关课程</div>
+</div>
+{/if}
+{/if}

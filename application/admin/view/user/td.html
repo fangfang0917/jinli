@@ -1,0 +1,22 @@
+<td>{$vo.id}</td>
+<td>{if $vo.head_type == 1}
+    <img src="{$vo.head}" alt="" style="width:60px;">
+    {else}
+    <img src="__IMG__/uploads/img/{$vo.head}" alt="" style="width:60px;">
+    {/if}
+</td>
+<td>{$vo.nick_name}</td>
+<td>{if $vo.phone==''}暂未添加{else}{$vo.phone}{/if}</td>
+<td>{if $vo.level == 0}{$levelname['level0']}
+    {elseif  $vo.level == 1}{$levelname['level1']}
+    {elseif  $vo.level == 2}{$levelname['level2']}
+    {elseif  $vo.level == 3}{$levelname['level3']}
+    {elseif  $vo.level == 4}{$levelname['level4']}
+    {else}{$levelname['level5']}
+    {/if}</td>
+<td>{$vo.pid}</td>
+<td>{$vo.amount}</td>
+<td><a href='javascript:layer_open("团队信息","{:url(\"user/team\",\"\",false,true)}/id/{$vo.id}");'>团队信息</a></td>
+<td><a href='javascript:layer_open("消费信息","{:url(\"user/buy\",\"\",false,true)}/id/{$vo.id}");'>消费信息</a></td>
+<td><a href='javascript:layer_open("团队信息","{:url(\"user/profit\",\"\",false,true)}/id/{$vo.id}");'>收益信息</a></td>
+<td>{:date('Y-m-d H:i:s',$vo.add_time)}</td>

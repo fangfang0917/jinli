@@ -1,0 +1,25 @@
+{extend name="template/base"/}
+{block name='style'}
+<link rel="stylesheet" type="text/css" href="__STATIC__/index/ydui/css/ydui.css?v={:time()}">
+{/block}
+{block name="content"}
+<div class="form-body">
+    <div class="form-box">
+        <ul class="form-ul">
+            <li>
+                <input type="text" name="phone" class="" readonly placeholder="请输入手机号" value="{$userinfo['phone']}" style="color:rgba(153,153,153,1);"/>
+                <span class="self-lib-phone-num">手机号</span>
+            </li>
+            <li class="complete p">
+<!--                style="background-color: #FE5B57;pointer-events:auto"-->
+                <button class="btn-disabled on r" style="pointer-events:auto"><a href="{:url('user/phone')}">更换手机号</a></button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{/block}
+{block name='script'}
+<script src="__STATIC__/index/ydui/js/ydui.js?v={:time()}"></script>
+<script src="__STATIC__/index/js/user.js?v={:time()}"></script>
+{/block}

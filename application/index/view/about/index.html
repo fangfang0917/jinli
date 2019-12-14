@@ -1,0 +1,51 @@
+{extend name="template/base" /}
+{block name="content"}
+<style>
+    html, body{
+        background: #F5F5F5  !important;
+    }
+</style>
+
+    <div class="about-topbox">
+        <div class="about-imgbox">
+            <img src="{$about.about_pic}" style="width: 100%;height: 100%"/>
+        </div>
+        <div class="about-cen">{$about.about_bb}</div>
+        <div class="about-txt">
+            {$about.aboutjl ||htmlspecialchars_decode}
+        </div>
+    </div>
+    <div class="about-bot-con">
+        <ul>
+            <li>
+                <a href="{:url('about/plat')}" class="service-bot-contb">
+                    <div class="service-tex">平台服务协议</div>
+                    <div class="service-icon">
+                        <i class="iconfont icon-youjiantou"></i>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('about/userxy')}" class="service-bot-contb">
+                    <div class="service-tex">用户服务协议</div>
+                    <div class="service-icon">
+                        <i class="iconfont icon-youjiantou"></i>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('about/userhz')}" class="service-bot-contb">
+                    <div class="service-tex">商务合作</div>
+                    <div class="service-icon">
+                        <i class="iconfont icon-youjiantou"></i>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="about-bot" style="padding-top: 0.72rem;">
+        <span>臻课教育 版权所有</span>
+        <span>Copyright&copy2019 zhenkejiaoyu.All Rights Reserved.</span>
+    </div>
+
+{/block}

@@ -1,0 +1,316 @@
+{extend name="template/base"/}
+{block name='style'}
+<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/sc.css?v={:time()}">
+<style>
+    .open a {
+        pointer-events: auto;
+    }
+
+    .agreement {
+        padding-left: 0.34rem;
+        padding-top: .3rem
+    }
+
+    label {
+        display: flex;
+        position: relative
+    }
+
+    label span {
+        line-height: 0.34rem;
+        font-size: 12px
+    }
+
+    label .follow {
+        color: #999999;
+        margin-left: 0.2rem
+    }
+
+    label .platform {
+        color: #1490E9
+    }
+
+    label .icon {
+        position: absolute;
+        top: 0;
+        left: -0.01rem;
+        opacity: 0
+    }
+
+    .agreement .select {
+        width: 0.34rem;
+        height: 0.34rem;
+        border: 1px solid #979797;
+        border-radius: 2px
+    }
+
+    .agreement input {
+        width: 0.34rem;
+        height: 0.34rem;
+        opacity: 0;
+        appearance: checkbox;
+        -moz-appearance: checkbox;
+        -webkit-appearance: checkbox
+    }
+
+    html, body {
+        background-color: #F9F9F9 !important
+    }
+
+    .tip-box-inner {
+        position: absolute;
+        top: -0.7rem;
+        left: 3.5rem;
+
+    }
+
+    .tip-box-inner .innernum {
+        font-size: 10px;
+        position: absolute;
+        top: 9px;
+        /*left: 9px;*/
+        width: 100%;
+        text-align: center;
+    }
+</style>
+{/block}
+{block name="content"}
+<div>
+    <input type="hidden" name="che-level" value="">
+    <div class="topSwiper" data-show="{$level}">
+        <div class="left hidden"></div>
+        {volist name='sharelevel' id='vo'}
+        <div data-item="{$key}" class="top-box hidden card" data-level='{$vo.level}' data-getLevel="{$sharelevelGet}"
+             data-nowLevel="{$userInfo['level']}">
+            <img class="backgroundImg" src="{$vo.bimg}" alt="">
+            <!--<img class="vipImg" src="{$vo.img}" alt="">-->
+            <div class="exclusiveVIP">
+                <p class="VIP-yz">{$vo.content}</p>
+                <p class="VIP-price">
+                    <span class="isPrice">￥{$vo.vip_money}</span>
+                    <!--<span class="isOpenlc">{if $vo.level <= $userInfo.level}已开通{else}未开通{/if}</span>-->
+                </p>
+            </div>
+            {if !in_array($vo.level,[1,5])}
+            {if $vo.level<=$userInfo['level']}
+            <div class="open">
+                <p class="tsix">永久有效</p>
+                <p class="t topUp">
+                    <!--<a href="javascript:;">已开通</a>-->
+                </p>
+            </div>
+            {else}
+            {if $jindutiao == 1}
+            <!--<div class="level">-->
+            <!--<div class="levelVIP">{$vo.before_title}</div>-->
+            <!--<div class="progress-bar" style="position: relative">-->
+            <!--<div data-tip="1" class="tip-box-inner"-->
+            <!--style="left:{if $vo.my_share_num/$vo.share_num*100 >=100}92{else}{$vo.my_share_num/$vo.share_num*100-8}{/if}%;">-->
+            <!--<svg t="1572834095644" class="icon" viewBox="0 0 1024 1024" version="1.1"-->
+            <!--xmlns="http://www.w3.org/2000/svg" p-id="1093" width="25" height="20">-->
+            <!--<path d="M649.6 812.8l-114.976 114.944a32 32 0 0 1-45.248 0L374.4 812.8H128a64 64 0 0 1-64-64V160a64 64 0 0 1 64-64h768a64 64 0 0 1 64 64v588.8a64 64 0 0 1-64 64h-246.4z"-->
+            <!--p-id="1094" fill="#ffffff"></path>-->
+            <!--</svg>-->
+            <!--<div class="innernum">{$vo.my_share_num}</div>-->
+            <!--</div>-->
+            <!--<div class="progress"-->
+            <!--style="width:{if $vo.my_share_num/$vo.share_num*100 >=100}100{else}{$vo.my_share_num/$vo.share_num*100}{/if}%"></div>-->
+            <!--</div>-->
+            <!--<div class="levelOne">{$vo.next_title}</div>-->
+            <!--<div class="level-person">人数{$vo.my_share_num}/{$vo.share_num}</div>-->
+            <!--</div>-->
+            {/if}
+            <div class="open">
+
+                <!--{if $jindutiao == 1}-->
+                <!--<span class="upgrade">升级</span>-->
+                <!--<p class="tsix">{$vo.left_bottom_title}</p>-->
+                <!--{else}-->
+                <!--<p class="tsix">&nbsp</p>-->
+                <!--{/if}-->
+
+                <p class="t topUp" style="padding-top: 1.1rem;">
+                    {if $userInfo['level'] == 0}
+                    <a href="javascript:levelUp('{$vo.level}');">立即开通</a>
+                    {else}
+                    {if ($vo.share_num - $vo.my_share_num) <= 0}
+                    <a href="javascript:levelUpNotBuy('{$vo.level}');">免费升级</a>
+                    {else}
+                    <a href="javascript:levelUp('{$vo.level}');">立即开通</a>
+                    {/if}
+                    {/if}
+                </p>
+            </div>
+            {/if}
+            {/if}
+
+            {if in_array($vo.level,[1])}
+            <div class="open">
+                {if $userInfo['level'] == 0}
+                <p class="tsix">{$vo.left_bottom_title}</p>
+                <p class="t topUp">
+                    <a href="javascript:buyVip();">立即开通</a>
+                </p>
+                {else}
+                {if $userInfo['level']>1 }
+                <p class="tsix">永久有效</p>
+                <p class="t topUp">
+                    <!--<a href="javascript:;">已开通</a>-->
+                </p>
+                {else}
+                <p class="tsix">
+                    {:date('Y-m-d',$userInfo['buy_vip_time'])}~{:date('Y-m-d',$userInfo['buy_vip_time']+365*24*60*60)}</p>
+                <p class="t topUp">
+                    <!--<a href="javascript:;">已开通</a>-->
+                </p>
+                {/if}
+                {/if}
+            </div>
+            {/if}
+
+            {if in_array($vo.level,[5])}
+            <div class="open">
+                {if $userInfo['level'] != 5}
+                <p class="tsix">&nbsp</p>
+                <p class="t topUp">
+                    <a href="javascript:setAgent();" style="background-color: #BD4184;">立即开通</a>
+                </p>
+                {else}
+                <p class="tsix">&nbsp</p>
+                <p class="t topUp">
+                    <a href="javascript:;" style="background-color: #BD4184;">已开通</a>
+                </p>
+                {/if}
+            </div>
+            {/if}
+        </div>
+        {/volist}
+        <div class="next"></div>
+    </div>
+
+    <div class="agreement" style="display: none;">
+        <label>
+            <!--<div class="select">-->
+            <!--<svg class="icon"-->
+            <!--style="width: .4em; height: .4em;vertical-align: middle;fill: currentColor;overflow: hidden;"-->
+            <!--viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6655">-->
+            <!--<path d="M876.987738 223.178989c-34.218336-26.873044-83.720773-20.923542-110.598934 13.284561L466.977597 617.637945 246.479671 403.361721c-31.19242-30.30112-81.06427-29.578666-111.381763 1.613754-30.30112 31.197536-29.589922 81.075527 1.608637 111.38688l282.442744 274.417977c31.197536 30.312376 81.069387 29.578666 111.376647-1.608637 3.526313-3.623527 5.183046-8.15575 7.872295-12.224416 3.764744-3.260254 8.116865-5.574972 11.301394-9.633405l340.567559-433.56358C917.14432 299.543214 911.189701 250.045893 876.987738 223.178989z"-->
+            <!--p-id="6656"></path>-->
+            <!--</svg>-->
+            <!--<input name="userlevel" type="checkbox" value="1">-->
+            <!--</div>-->
+            <span class="follow">开通默认同意遵循</span>
+            <span class="platform"><a href="{:url('About/plat')}">《锦鲤MoM平台收费协议》</a></span>
+        </label>
+    </div>
+    <!--<div class="topSuspension">-->
+    <!--<img src="__STATIC__/index/img/horn.png" alt="">-->
+    <!--<p>同意平台协议后才可开通</p>-->
+    <!--<img id="deleteTop" src="__STATIC__/index/img/cross.png" alt="">-->
+    <!--</div>-->
+
+    <style>
+        .max-img {
+            width: 100%;
+            margin-top: .2rem;
+            padding-bottom: .3rem;
+        }
+
+        .max-img img {
+            width: 100%;
+        }
+        .up-box{
+            /*margin-top: 10px;*/
+            padding: 0.2rem;
+        }
+    </style>
+    <!--会员专属权益介绍-->
+    <div class="z-exclusive">
+        <div class="topexc">
+            <p class="pone">会员专属权益介绍</p>
+            <a href="javascript:;" class="ptwo"><span>查看详情</span><img src="__STATIC__/index/img/home/jiantou.png" alt=""></a>
+        </div>
+        <div class="botexc">
+            <a href="javascript:;" class="done">
+                <img src="__STATIC__/index/img/home/kclb.png" alt="">
+                <p>课程礼包</p>
+            </a>
+            <a href="javascript:;" class="done">
+                <img src="__STATIC__/index/img/home/xszk.png" alt="">
+                <p>专享折扣</p>
+            </a>
+            <a href="javascript:;" class="done">
+                <img src="__STATIC__/index/img/home/xxsq.png" alt="">
+                <p>学习社群</p>
+            </a>
+            <a href="javascript:;" class="done">
+                <img src="__STATIC__/index/img/home/lszq.png" alt="">
+                <p>零售赚钱</p>
+            </a>
+        </div>
+    </div>
+    <!--灰条-->
+    <div class="ht"></div>
+
+    <!--高端唤醒营-->
+    <div class="z-camp" style="display: none">
+        <div class="topcamp">
+            <p class="pone">高端唤醒营</p>
+        </div>
+        <div class="botcamp">
+            <a href="javascript:;" class="done">
+                <img src="__STATIC__/index/img/home/zxjhx.png" class="q" alt="">
+                <p>初级唤醒执行师课程包</p>
+            </a>
+            <a href="javascript:;" class="done">
+                <img src="__STATIC__/index/img/home/zxjcf.png" class="s" alt="">
+                <p>初级创富权益</p>
+            </a>
+        </div>
+    </div>
+    <!--灰条-->
+    <div class="ht"></div>
+    <!--升级任务-->
+    <div class="z-task">
+        <div class="toptask">
+            <p class="pone">升级任务</p>
+        </div>
+        <p class="z-tj">已推荐 <span>{$userInfo['share_num']}</span> 人</p>
+
+
+        {volist name='data' id='vo'}
+        <div class="z-hy">
+            <div class="done"><img src="{$vo.img}" alt=""></div>
+            <div class="dtwo">
+                <p class="pone">{$vo.content}</p>
+                <p class="ptwo">{$vo.left_bottom_title}</p>
+            </div>
+            {if $userInfo['level']>=$vo['level']}
+            <div class="dth">已完成 </div>
+            {else}
+            {if $vo.my_share_num  >= $vo.share_num}
+            <a class="atwo" href="javascript:;"   onclick="levelUpNotBuy('{$vo.level}')">升级</a>
+            {else}
+            <a class="aone" href="javascript:;">升级</a>
+            {/if}
+            {/if}
+
+        </div>
+
+        {/volist}
+        <!--使用须知-->
+        <div class="z-info">
+            <p class="ptitle">使用须知</p>
+            {volist name='pro' id='r'}
+            <p class="pone">Q:{$r.problem}？</p>
+            <p class="ptwo">A:{$r.da}</p>
+            {/volist}
+        </div>
+        <!--<div class="max-img">-->
+
+        <!--</div>-->
+    </div>
+    {/block}
+    {block name='script'}
+    <script type="text/javascript" src="__STATIC__/index/js/sc.js?v={:time()}"></script>
+    {/block}

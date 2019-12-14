@@ -1,0 +1,49 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    <form class="mb-20" id="form" method="get" action="{:\\think\\Url::build($Request.action)}">
+        <input type="text" class="input-text" style="width:150px" placeholder="code所属用户id" name="uid" value="{$Request.param.uid}">
+        <input type="text" class="input-text" style="width:150px" placeholder="使用者id" name="userid" value="{$Request.param.userid}">
+        <input type="text" class="input-text" style="width: 150px" placeholder="开始时间" readonly  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="start_time"  value="{$Request.param.start_time}">
+        <input type="text" class="input-text" style="width: 150px" placeholder="结束时间" readonly  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="end_time"  value="{$Request.param.end_time}">
+        <div class="btn btn-success" id=""  name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</div>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l">
+        </span>
+        <span class="r pt-5 pr-5">
+            共有数据 ：<strong>{$count}</strong> 条
+        </span>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th>ID</th>
+            <th>兑换码所属人员ID</th>
+            <th width="10%">兑换码所属人员</th>
+            <th>类型</th>
+            <th>兑换所得</th>
+            <th>使用用户ID</th>
+            <th>使用用户</th>
+            <th width="10%">时间</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td>{$vo.id}</td>
+            <td>{$vo.uid}</td>
+            <td>{:getUser($vo.uid)}</td>
+            <td>{$vo.codetypename}</td>
+            <td>{$vo.codetype == 1 ? getlevel($vo.level) : getCourseName($vo.course_id)}</td>
+            <td>{$vo.userid}</td>
+            <td>{:getUser($vo.userid)}</td>
+            <td>{:date('Y-m-d',$vo.createtime)}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}

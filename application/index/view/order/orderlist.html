@@ -1,0 +1,58 @@
+{if isset($orderlist)}
+{if count($orderlist)>0}
+
+{volist name='orderlist' id='vo'}
+<li>
+    <a href="{:url('course/detail')}?id={$vo.id}">
+        <div class="order-top">
+            订单编号：{$vo.order_no}
+        </div>
+        <div class="order-bot">
+            <div class="order-left r2">
+                <div class="order-img">
+                    <img src="{$vo.course_pic}"/>
+                    <div class="order-bg"></div>
+                    <div class="order-text">
+                        <i class="iconfont icon-chakan"></i>
+                        <span>{$vo.course_look}人已观看</span>
+                    </div>
+                </div>
+            </div>
+            <div class="order-right">
+                <div class="order-right-top">
+                    <h2>
+                        {$vo.course_title}
+                    </h2>
+                    <span>
+                                            {$vo.course_remark}
+                                        </span>
+                </div>
+                <div class="order-right-bot">
+                    <div class="price-box">
+                        {if $vo.money>0}
+                        ￥{$vo.money}
+                        {/if}
+                    </div>
+                    <div class="state-box">
+                        {if $vo.pay_type == 1}
+                            {if $vo.course_type==1}已支付
+                            {elseif $vo.course_type==2}礼包领取
+                            {elseif $vo.course_type==3}兑换课程
+                            {else}vip赠送
+                            {/if}
+                        {else}未支付
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</li>
+{/volist}
+{else}
+<div class="order-none">
+    <img src="__STATIC__/index/img/kecheng.png?v={:time()}">
+    <div class="order-null">您的课程还是空的~</div>
+</div>
+{/if}
+{/if}

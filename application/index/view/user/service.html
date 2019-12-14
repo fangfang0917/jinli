@@ -1,0 +1,54 @@
+{extend name="template/base" /}
+{block name="content"}
+    <div class="service-header">
+        <div class="service-imgbox">
+            <img src="__STATIC__/index/img/kefu.png"/>
+        </div>
+        <div class="service-bot">
+            <span>服务热线：{$Customer.customer_phone}</span>
+            <a href="tel:{$Customer.customer_phone}" class="r">一键拨号</a>
+        </div>
+    </div>
+    <div class="service-bot-con">
+        <ul>
+            <li>
+                <a href="javascript:;" class="service-bot-cont"  onclick="showtop('{$Customer.wx}','客服微信:{$Customer.customer_wxzh}','长按识别二维码添加客服')">
+                    <div class="service-tex">联系客服</div>
+                    <div class="service-icon">
+                        <i class="iconfont icon-youjiantou"></i>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;" class="service-bot-cont"  onclick="showtop('{$Customer.wxgz}','锦鲤MoM','长按识别二维码关注公众号')">
+                    <div class="service-tex">关注公众号</div>
+                    <div class="service-icon">
+                        <i class="iconfont icon-youjiantou"></i>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('user/servicelist')}" class="">
+                    <div class="service-tex">常见问题</div>
+                    <div class="service-icon">
+                        <i class="iconfont icon-youjiantou"></i>
+                    </div>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+{/block}
+{block name='script'}
+<script type="text/javascript" src="__STATIC__/index/js/user.js"></script>
+<style type="text/css">
+    .bg{
+        display: none;
+    }
+    body{
+        background-color: #F5F5F5 !important;
+    }
+</style>
+
+{/block}

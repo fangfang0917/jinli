@@ -1,0 +1,104 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    <form class="mb-20" method="get" action="{:\\think\\Url::build($Request.action)}">
+        <input type="text" class="input-text" style="width:250px" placeholder="用户昵称" name="nick_name"
+               value="{$Request.param.course_title}">
+        <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l">
+             <!--{tp:menu menu="add,forbid,resume,saveorder" /}-->
+        </span>
+        <span class="r pt-5 pr-5">
+            共有数据 ：<strong>{$count}</strong> 条
+        </span>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th>ID</th>
+            <th>申请人</th>
+            <th>真实姓名</th>
+            <th>手机号</th>
+            <th>联系地址</th>
+            <th>等级</th>
+            <th>金额</th>
+            <th>申请时间</th>
+            <th>审核状态</th>
+            <th>审核时间</th>
+            <th width="150">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td>{$vo.id}</td>
+            <td>{$vo.nick_name}</td>
+            <td>{$vo.realname}</td>
+            <td>{$vo.phone}</td>
+            <td>{$vo.addr}</td>
+            <td>{$vo.level}</td>
+            <td>{$vo.amount}元</td>
+            <td>{:date('Y-m-d H:i:s',$vo.createtime)}</td>
+            <td>{if $vo.type == 0}待签约{elseif $vo.type == 1}签约成功{else}签约未成功{/if}</td>
+            <td>{if $vo.type == 0}待签约{elseif $vo.type == 1}{:date('Y-m-d H:i:s',$vo.uptime)}{else}签约未成功{/if}
+            </td>
+
+            <td class="f-14">
+                {if $vo.type ==1}
+                <a href="javascript:;" class="label radius label-success">已审核,签约成功</a>
+                {elseif $vo.type == 2}
+                <a href="javascript:;" class="label label-warning radius">已审核,签约未成功</a>
+                {else}
+                <a href="javascript:istype('{$vo.id}',1);" class="label radius label-success" data-id="{$vo.id}"
+                   data-type="1">签约成功</a>
+                <a href="javascript:istype('{$vo.id}',2);" class="label label-warning radius " data-id="{$vo.id}"
+                   data-type="2">签约未成功</a>
+                {/if}
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}
+{block name='script'}
+<script>
+    function istype(id, type) {
+        layer.confirm('请核实是否签约？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.ajax({
+                url: "{:url('Outlevel/isType')}",
+                type: "post",
+                data: {
+                    id: id,
+                    type: type
+                },
+                dataType: "json",
+                success: function (e) {
+                    console.log(e);
+                    if(e.state == 1){
+                        layer.msg(e.msg,{icon:6,time:1000});
+                        setInterval(function () {
+                            location.reload();
+                        },2000)
+                    }else{
+                        layer.msg('网络错误!请重试',{icon:5,time:1000});
+
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                    layer.msg('网络错误!请重试',{icon:5,time:1000});
+
+                }
+            })
+        }, function(){
+            layer_close();
+        });
+    }
+</script>
+{/block}

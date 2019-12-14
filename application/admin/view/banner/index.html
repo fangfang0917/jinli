@@ -1,0 +1,50 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="l">
+             {tp:menu menu="add" /}
+        </span>
+        <span class="r pt-5 pr-5">
+            共有数据 ：<strong>{$count}</strong> 条
+        </span>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th>ID</th>
+            <th width="10%">图片类型</th>
+            <th>图片</th>
+            <th>链接</th>
+            <th width="10%">添加时间</th>
+            <th width="150">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td>{$vo.id}</td>
+            <td>
+                {if $vo.banner_type == 1} 首页banner图 {/if}
+                {if $vo.banner_type == 2} 锦鲤KIDbanner图 {/if}
+                {if $vo.banner_type == 3} 升级提醒-未获得 {/if}
+                {if $vo.banner_type == 4} 礼包提醒图 {/if}
+                {if $vo.banner_type == 5} 非VIP提醒图 {/if}
+                {if $vo.banner_type == 6} 升级提醒-已获得 {/if}
+                {if $vo.banner_type == 7} 个人中心广告图 {/if}
+                {if $vo.banner_type == 8} 首页课程宣传图 {/if}
+            </td>
+            <td><img src="{$vo.banner_pic}" alt="" style="max-width:300px;"></td>
+            <td>{$vo.banner_url!=''?$vo.banner_url:'--'}</td>
+            <td>{:date('Y-m-d H:i:s',$vo.add_time)}</td>
+
+            <td class="f-14">
+                {tp:menu menu='sedit,sdeleteforever' /}
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}

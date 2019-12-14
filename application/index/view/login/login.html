@@ -1,0 +1,24 @@
+{extend name="template/base" /}
+{block name='style'}{/block}
+{block name='content'}{/block}
+{block name='script'}
+<script>
+    $(function () {
+        GetUserInfo();
+    })
+
+    function GetUserInfo() {
+        $.ajax({
+            url: "{:url('login/GetUserInfo')}",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    }
+</script>
+{/block}

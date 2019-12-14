@@ -1,0 +1,42 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    {include file='form' /}
+    <div class="cl pd-5 bg-1 bk-gray">
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th width="100">购买人</th>
+            <th width="100">订单号</th>
+            <th width="150">金额</th>
+            <th width="150">时间</th>
+            <th width="150">课程ID</th>
+            <th width="150">支付状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td>{$vo.nick_name}</td>
+            <td>{$vo.order_no}</td>
+            <td>{$vo.money}</td>
+            <td>{:date('Y-m-d H:i:s',$vo.add_time)}</td>
+            <td>{$vo.course_id}</td>
+            <td>{if $vo.pay_type == 0}未支付{else}已支付{/if}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}
+{block name='script'}
+<script>
+    function setchoose(id,name) {
+       window.parent.choose(id,name);
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.layer.close(index);
+    }
+</script>
+{/block}

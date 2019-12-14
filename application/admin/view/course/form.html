@@ -1,0 +1,10 @@
+<form class="mb-20" method="get" action="{:\\think\\Url::build($Request.action)}">
+    <input type="text" class="input-text" style="width:250px" placeholder="课程标题" name="course_title" value="{$Request.param.course_title}">
+    <select name="course_type" class="select-box" style="width: 250px;height: 30px">
+        <option value="0">请选择课程类型</option>
+        {volist name="CCT" id="r"}
+        <option value="{$r['type']}" {if isset($vo)}{if $vo['course_type'] == $r['type'] }selected{/if}{/if}>{$r['name']}</option>
+        {/volist}
+    </select>
+    <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+</form>

@@ -1,0 +1,46 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    <form class="mb-20" method="get" action="{:\\think\\Url::build($Request.action)}">
+        <input type="text" class="input-text" style="width:250px" placeholder="姓名" name="nick_name" value="{$Request.param.realname}">
+        <input type="text" class="input-text" style="width:250px" placeholder="帐号" name="id" value="{$Request.param.id}">
+        <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray">
+        <span class="r pt-5 pr-5">
+
+        </span>
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th>ID</th>
+            <th>用户名</th>
+            <th width="10%">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td>{$vo.id}</td>
+            <td>{$vo.nick_name}</td>
+            <td class="f-14">
+                <a href="javascript:setChoose('{$vo.id}','{$vo.nick_name}');">选择</a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}
+
+{block name='script'}
+<script>
+    function setChoose(id,name) {
+        window.parent.setChoose(id,name);
+        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+        parent.layer.close(index);
+    }
+</script>
+{/block}

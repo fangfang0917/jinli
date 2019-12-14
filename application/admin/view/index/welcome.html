@@ -1,0 +1,161 @@
+{extend name="template/base" /}
+{block name="title"}我的桌面{/block}
+{block name="content"}
+<div class="page-container">
+    <p class="f-20 text-success">欢迎使用 {$Think.config.site.name} <span class="f-14">{$Think.config.site.version}</span>后台管理系统！</p>
+    <p>登录次数：{$info.login_count} </p>
+    {if condition="session('last_login_time')"}
+    <p>上次登录IP：{$last_login_ip} &nbsp;&nbsp;&nbsp; 上次登录时间：{$Think.session.last_login_time|date='Y-m-d H:i:s',###} &nbsp;&nbsp;&nbsp;
+        上次登录地点：{$last_login_loc}</p>
+    {/if}
+    <p>本次登录IP：{$current_login_ip} &nbsp;&nbsp;&nbsp; 本次登录时间：{$info.last_login_time|date='Y-m-d H:i:s',###} &nbsp;&nbsp;&nbsp;
+        本次登录地点：{$current_login_loc}</p>
+
+   <div>
+       <table class="table table-border table-bordered table-bg">
+           <thead>
+           <tr>
+               <th colspan="7" scope="col">人员信息统计
+                   <!--<form class="mb-20" method="get" action="{:\\think\\Url::build($Request.action)}">-->
+                       <!--<input type="text" class="input-text" style="width: 150px" placeholder="开始时间" readonly-->
+                              <!--onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="start_time">-->
+                       <!--<input type="text" class="input-text" style="width: 150px" placeholder="结束时间" readonly-->
+                              <!--onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="end_time">-->
+
+                       <!--<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>-->
+                   <!--</form>-->
+               </th>
+           </tr>
+           <tr class="text-c">
+               <th>统计</th>
+               <th>用户总数</th>
+               <th>{$levelname['level1']}总数</th>
+               <th>初级代理</th>
+               <th>中级代理</th>
+               <th>高级代理</th>
+               <th>{$levelname['level5']}</th>
+           </tr>
+           </thead>
+           <tbody>
+           <tr class="text-c">
+               <td>总数</td>
+               <td>{$total_num.user.total_user_num ?? 0}</td>
+               <td>{$total_num.user.total_vip_user_num ?? 0}</td>
+               <td>{$total_num.user.total_c_user_num ?? 0}</td>
+               <td>{$total_num.user.total_z_user_num ?? 0}</td>
+               <td>{$total_num.user.total_g_user_num ?? 0}</td>
+               <td>{$total_num.user.total_s_user_num ?? 0}</td>
+           </tr>
+           <tr class="text-c">
+               <td>今日</td>
+               <td>{$today_total_num.user.total_user_num ?? 0}</td>
+               <td>{$today_total_num.user.total_vip_user_num ?? 0}</td>
+               <td>{$today_total_num.user.total_c_user_num ?? 0}</td>
+               <td>{$today_total_num.user.total_z_user_num ?? 0}</td>
+               <td>{$today_total_num.user.total_g_user_num ?? 0}</td>
+               <td>{$today_total_num.user.total_s_user_num ?? 0}</td>
+           </tr>
+           <tr class="text-c">
+               <td>昨日</td>
+               <td>{$yesterday_total_num.user.total_user_num ?? 0}</td>
+               <td>{$yesterday_total_num.user.total_vip_user_num ?? 0}</td>
+               <td>{$yesterday_total_num.user.total_c_user_num ?? 0}</td>
+               <td>{$yesterday_total_num.user.total_z_user_num ?? 0}</td>
+               <td>{$yesterday_total_num.user.total_g_user_num ?? 0}</td>
+               <td>{$yesterday_total_num.user.total_s_user_num ?? 0}</td>
+           </tr>
+           <tr class="text-c">
+               <td>本周</td>
+               <td>{$week_total_num.user.total_user_num ?? 0}</td>
+               <td>{$week_total_num.user.total_vip_user_num ?? 0}</td>
+               <td>{$week_total_num.user.total_c_user_num ?? 0}</td>
+               <td>{$week_total_num.user.total_z_user_num ?? 0}</td>
+               <td>{$week_total_num.user.total_g_user_num ?? 0}</td>
+               <td>{$week_total_num.user.total_s_user_num ?? 0}</td>
+           </tr>
+           <tr class="text-c">
+               <td>本月</td>
+               <td>{$week_total_num.user.total_user_num ?? 0}</td>
+               <td>{$week_total_num.user.total_vip_user_num ?? 0}</td>
+               <td>{$week_total_num.user.total_c_user_num ?? 0}</td>
+               <td>{$week_total_num.user.total_z_user_num ?? 0}</td>
+               <td>{$week_total_num.user.total_g_user_num ?? 0}</td>
+               <td>{$week_total_num.user.total_s_user_num ?? 0}</td>
+           </tr>
+           <tr class="text-c">
+               <td>付费人数</td>
+               <td>{$total_num.user.total_user_num ?? 0}</td>
+               <td>{$total_num.user.total_vip_user_num ?? 0}</td>
+               <td>{$total_num.user.total_c_user_num ?? 0}</td>
+               <td>{$total_num.user.total_z_user_num ?? 0}</td>
+               <td>{$total_num.user.total_g_user_num ?? 0}</td>
+               <td>{$total_num.user.total_s_user_num ?? 0}</td>
+           </tr>
+           </tbody>
+       </table>
+   </div>
+
+
+    <div style="margin-top: 20px">
+
+        <table class="table table-border table-bordered table-bg">
+            <thead>
+            <tr>
+                <th colspan="7" scope="col">课程销售信息统计
+                    <!--<form class="mb-20" method="get" action="{:\\think\\Url::build($Request.action)}">-->
+                        <!--<input type="text" class="input-text" style="width: 150px" placeholder="开始时间" readonly-->
+                               <!--onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="start_time">-->
+                        <!--<input type="text" class="input-text" style="width: 150px" placeholder="结束时间" readonly-->
+                               <!--onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="end_time">-->
+                        <!--<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>-->
+                    <!--</form>-->
+                </th>
+            </tr>
+            <tr class="text-c">
+                <th>统计</th>
+                <th>课程总销售额</th>
+                <th>课程总订单量</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c">
+                <td>总数</td>
+                <td>{$total_num.course_total_money ?? 0}</td>
+                <td>{$total_num.course_total_num ?? 0}</td>
+            </tr>
+            <tr class="text-c">
+                <td>今日</td>
+                <td>{$today_total_num.course_total_money ?? 0}</td>
+                <td>{$today_total_num.course_total_num ?? 0}</td>
+            </tr>
+            <tr class="text-c">
+                <td>昨日</td>
+                <td>{$yesterday_total_num.course_total_money ?? 0}</td>
+                <td>{$yesterday_total_num.course_total_num ?? 0}</td>
+            </tr>
+            <tr class="text-c">
+                <td>本周</td>
+                <td>{$week_total_num.course_total_money ?? 0}</td>
+                <td>{$week_total_num.course_total_num ?? 0}</td>
+            </tr>
+            <tr class="text-c">
+                <td>本月</td>
+                <td>{$week_total_num.course_total_money ?? 0}</td>
+                <td>{$week_total_num.course_total_num ?? 0}</td>
+            </tr>
+            <tr class="text-c">
+                <td>总额</td>
+                <td>{$total_num.course_total_money ?? 0}</td>
+                <td>{$total_num.course_total_num ?? 0}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer class="footer mt-20">
+    <div class="container">
+
+    </div>
+</footer>
+{/block}

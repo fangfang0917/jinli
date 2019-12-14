@@ -1,0 +1,57 @@
+{extend name="template/base"/}
+{block name='style'}
+<link rel="stylesheet" type="text/css" href="__STATIC__/index/ydui/css/ydui.css?v={:time()}">
+<style>
+    .form-box, body {
+        background-color: #ffffff !important;
+    }
+
+    .self-li-i {
+        border-bottom: 1px solid #EEEEEE;
+        position: relative;
+    }
+
+    .self-li-i .new {
+        padding-left: .38rem;
+        text-align: left !important;
+        width: 70%;
+    }
+    .ttitle {
+        line-height: 0.94rem;
+        width: 25%;
+        font-size: .34rem;
+        padding-left: 0.34rem;
+    }
+
+</style>
+{/block}
+{block name="content"}
+<div class="form-body">
+    <div class="form-box">
+        <ul class="form-ul">
+            <li class="self-li">
+                <span class="ttitle">手机号</span><input class="new" type="number" name="phone"
+                                                    readonly  value="{$rigU['phone'] ?? ''}"/></li>
+            <li class="self-li-i">
+                <span class="ttitle">真实姓名</span> <input class="new" type="text" name="realname" placeholder="请填写真是姓名" value="{$rigU['realname']}"/>
+            </li>
+            <li class="self-li-i">
+                <span class="ttitle">身份证号</span><input class="new" type="number" name="card" placeholder="请填写身份证号" value="{$rigU['card']}"/>
+            </li>
+            <li class="self-li-i">
+                <span class="ttitle">银行账号</span><input class="new" type="number" name="bankcode" placeholder="请填写银行账号" value="{$rigU['bankcode']}"/>
+            </li>
+            <li class="self-li-i">
+                <span class="ttitle">开户行</span> <input class="new" type="text" name="bankname" placeholder="请填写开户行" value="{$rigU['bankname']}"/>
+            </li>
+            <li class="complete p">
+                <button class="btn-disabled r" _setrenz>完成</button>
+            </li>
+        </ul>
+    </div>
+</div>
+{/block}
+{block name='script'}
+<script src="__STATIC__/index/ydui/js/ydui.js?v={:time()}"></script>
+<script src="__STATIC__/index/js/user.js?v={:time()}"></script>
+{/block}

@@ -1,0 +1,52 @@
+{extend name="template/base" /}
+{block name="content"}
+<div class="page-container">
+    <form action=""></form>
+    <div class="cl pd-5 bg-1 bk-gray">
+    </div>
+    <table class="table table-border table-bordered table-hover table-bg mt-20">
+        <thead>
+        <tr class="text-c">
+            <th width="100">课程标题</th>
+            <th width="150">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td>{$vo.course_title}</td>
+            <td class="f-14">
+                <a href="javascript:setchoose('{$vo.id}','{$vo.course_title}');">选择</a>
+            </td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+    <div class="page-bootstrap">{$page}</div>
+</div>
+{/block}
+{block name='script'}
+<script>
+    function setchoose(id, name) {
+        $.ajax({
+            url: "{:url('Zcourse/add')}",
+            type: 'post',
+            data: {
+                course_id: id
+            },
+            dataType: 'json',
+            success: function (e) {
+                if (e.state == 1) {
+                    parent.location.reload();
+                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                    parent.layer.close(index);
+                }
+
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        })
+    }
+</script>
+{/block}

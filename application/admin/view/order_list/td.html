@@ -1,0 +1,19 @@
+<td>{$vo.order_no}</td>
+<td>{$vo.nick_name}</td>
+<td>{if $vo.phone == ''}暂未绑定{else}{$vo.phone}{/if}</td>
+<td>{if $vo.level == 0}{$levelname['level0']}
+    {elseif $vo.level == 1}{$levelname['level1']}
+    {elseif $vo.level == 2}{$levelname['level2']}
+    {elseif $vo.level == 3}{$levelname['level3']}
+    {elseif $vo.level == 4}{$levelname['level4']}
+    {elseif $vo.level == 5}{$levelname['level5']}
+    {/if}</td>
+<td>
+    {if $vo.order_type == 1}购买课程订单
+    {elseif $vo.order_type == 3}购买代理订单
+    {elseif $vo.order_type == 4}购买VIP订单
+    {/if}</td>
+<td>{$vo.add_time}</td>
+<td>{if $vo.money == -1}vip赠送{elseif $vo.money == 0}礼包赠送{else}{$vo.money}{/if}</td>
+<td>{if $vo.pay_type == 0} <span style="color: red">未付款</span> {else} <span style="color: #00B83F">已付款</span> {/if}</td>
+<td>{$vo.course_title ?? '非课程订单'}</td>

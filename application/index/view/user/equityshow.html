@@ -1,0 +1,120 @@
+{extend name="template/base"/}
+{block name='style'}
+<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/sc.css?v={:time()}">
+{/block}
+{block name="content"}
+<div class="zxjcontent">
+    <div class="topimg"><a href="{:url('user/equityinfo',array('type'=>6))}"><img src="__STATIC__/index/img/home/vip-zxj-detail.png" alt=""></a></div>
+    <div class="innersolution">
+        <div class="zxjdone">
+            <div class="zxj-tag">VIP会员·解决方案</div>
+            <div class="bot-zxj">
+                <div class="left-zxj"><img src="__STATIC__/index/img/home/vip-zxj-1.png" alt=""></div>
+                <div class="right-zxj">
+                    <p class="ptitle">会员礼包+基础创富权益</p>
+                    <div class="zxj-buy">
+                        <p>{$sys['vip_money'] ?? 0}元</p>
+                        <!--<a href="javascript:buyVip();">立即购买></a>-->
+                        {if $userInfo['level'] < 1}
+                        <a href="javascript:;"  data-level="1">立即购买></a>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="zxjdone">
+            <div class="zxj-tag">白银会员·解决方案</div>
+            <div class="bot-zxj">
+                <div class="left-zxj"><img src="__STATIC__/index/img/home/vip-zxj-2.png" alt=""></div>
+                <div class="right-zxj">
+                    <p class="ptitle">初级唤醒师执行课礼包+会员礼包+初级创富权益</p>
+                    <div class="zxj-buy">
+                        <p>{$sys['vip_team_money_up'] ?? 0}元</p>
+                        <!--<a href="javascript:levelUp(2);">立即购买></a>-->
+                        {if $userInfo['level'] < 2}
+                        <a href="javascript:;" data-level="2">立即购买></a>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="zxjdone">
+            <div class="zxj-tag">黄金会员·解决方案</div>
+            <div class="bot-zxj">
+                <div class="left-zxj"><img src="__STATIC__/index/img/home/vip-zxj-3.png" alt=""></div>
+                <div class="right-zxj">
+                    <p class="ptitle">中级唤醒师执行课礼包+会员礼包+中级创富权益</p>
+                    <div class="zxj-buy">
+                        <p>{$sys['vip_team1_money_up'] ?? 0}元</p>
+                        <!--<a href="javascript:levelUp(3);">立即购买></a>-->
+                        {if $userInfo['level']<3}
+                        <a href="javascript:;" data-level="3">立即购买></a>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="zxjdone">
+            <div class="zxj-tag">铂金会员·解决方案</div>
+            <div class="bot-zxj">
+                <div class="left-zxj"><img src="__STATIC__/index/img/home/vip-zxj-4.png" alt=""></div>
+                <div class="right-zxj">
+                    <p class="ptitle">高级唤醒师执行课礼包+会员礼包+高级创富权益</p>
+                    <div class="zxj-buy">
+                        <p>{$sys['vip_team2_money_up'] ?? 0}元</p>
+                        <!--<a href="javascript:levelUp(4);">立即购买></a>-->
+                        {if $userInfo['level']<4}
+                        <a href="javascript:;" data-level="4">立即购买></a>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="zxjdone">
+            <div class="zxj-tag">钻石会员·解决方案</div>
+            <div class="bot-zxj">
+                <div class="left-zxj"><img src="__STATIC__/index/img/home/vip-zxj-5.png" alt=""></div>
+                <div class="right-zxj">
+                    <p class="ptitle">唤醒导师课程礼包+超级创富权益</p>
+                    <div class="zxj-buy">
+                        <p>{$sys['vip_team3_money_up'] ?? 0}元</p>
+                        <!--<a href="javascript:setAgent();">立即申请></a>-->
+                        {if $userInfo['level'] < 5}
+                        <a href="javascript:;" data-level="5">立即购买></a>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="zxj-know">
+        <p class="ptitle">购买须知：</p>
+        <p class="pone">1.以上为会员产品，点击进入可以查看会员相应权益介绍；</p>
+        <p class="pone"> 2.购买后，相应的课程，会在我的课程中展示，请在我的课程中查看；</p>
+        <p class="pone"> 3.线下课程部分，需要预约时间上课，购买后请联系客服确认上课时间；</p>
+        <p class="pone"> 4.客服微信：geniusmini 备注： 锦鲤妈妈。</p>
+    </div>
+</div>
+
+<div class="FenXiang-duize-tanchuang" style="z-index:9999">
+    <div class="FenXiang-duize-tanchuang-top">
+        <h1>锦鲤MOM平台收费协议</h1>
+        <p class="zxj-ptwo"><input id="checkbox" type="checkbox"><span>阅读并同意</span><a href="javascript:;">《锦鲤MoM平台收费协议》</a></p>
+        <div class="innertc">
+            <p class="pone">1.本产品为锦鲤妈妈付费会员产品，有效期为一年，高级会员身份及创富权益永久有效。</p>
+            <p class="pone">2.本产品包含虚拟内容服务，一经购买成功，概不退款，请您理解。</p>
+            <p class="pone">3.购买前，请阅读平台付费协议，了解权益详情。</p>
+            <p class="pone">4.若有疑问，可联系客服咨询。微信号：geniusmini 备注：锦鲤妈妈</p>
+         </div>
+
+        <div class="FenXiang-duize-tanchuang-hide" onclick="closeq()"></div>
+    </div>
+    <div class="FenXiang-duize-tanchuang-con" style="text-align: left"><ul>
+    </ul>
+
+    </div>
+</div>
+
+
+
+{/block}

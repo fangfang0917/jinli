@@ -1,0 +1,98 @@
+{extend name="template/base" /}
+{block name="nav"}{/block}
+{block name="content"}
+<div class="page-container">
+    <form class="form form-horizontal" id="form" method="post" action="{:\\think\\Request::instance()->baseUrl()}">
+        <input type="hidden" name="id" value="{$vo.id ?? ''}">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>等级：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <select name="type" class="select-box">
+                    <option value="0" {if isset($vo)}{if $vo.type == 0}selected{/if}{/if}>请选择代理等级</option>
+                    <option value="1" {if isset($vo)}{if $vo.type == 1}selected{/if}{/if}>{$levelname['level1']}</option>
+                    <option value="2" {if isset($vo)}{if $vo.type == 2}selected{/if}{/if}>{$levelname['level2']}</option>
+                    <option value="3" {if isset($vo)}{if $vo.type == 3}selected{/if}{/if}>{$levelname['level3']}</option>
+                    <option value="4" {if isset($vo)}{if $vo.type == 4}selected{/if}{/if}>{$levelname['level4']}</option>
+                    <option value="5" {if isset($vo)}{if $vo.type == 5}selected{/if}{/if}>{$levelname['level5']}</option>
+                    <option value="6" {if isset($vo)}{if $vo.type == 6}selected{/if}{/if}>其他</option>
+                </select>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3"><span class="c-red">*</span>权益图：</label>
+            <div class="formControls col-xs-6 col-sm-6">
+                <textarea name="equity_pic" id="equity" cols="30" rows="10" style="width: 100%;height: 600px">{$vo.equity_pic ?? ''}</textarea>
+            </div>
+            <div class="col-xs-3 col-sm-3"></div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <button type="submit" class="btn btn-primary radius">&nbsp;&nbsp;提交&nbsp;&nbsp;</button>
+                <button type="button" class="btn btn-default radius ml-20" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="__LIB__/Validform/5.3.2/Validform.min.js"></script>
+<script type="text/javascript" src="__LIB__/jquery.ajaxSubmit.js"></script>
+<script type="text/javascript" charset="utf-8" src="__LIB__/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__LIB__/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__LIB__/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+<script>
+    $(function () {
+
+        var ue = UE.getEditor('equity',{
+            toolbars: [["fullscreen","source","undo",'fontsize',"redo","bold","italic","underline","fontborder","strikethrough","superscript","subscript","insertunorderedlist","insertorderedlist","justifyleft","justifycenter","justifyright","justifyjustify","removeformat","simpleupload","snapscreen","emotion","attachment","insertimage"]]
+        });
+
+
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#form").Validform({
+            tiptype:2,
+            ajaxPost:true,
+            showAllError:true,
+            callback:function(ret){
+                ajax_progress(ret);
+            }
+        });
+    })
+
+    $('#cover').change(function(){
+        var this_obj  = $(this);
+        this_obj.wrap("<form action='{:url(\'course/savePic\',\'\',false,true)}' method='post' id='file_upload' enctype='multipart/form-data'></form>");
+        //防止上传图片时，出现卡顿现象
+        var loading = layer.load(3, {shade: [0.8, '#393D49']});
+
+        $('#file_upload').ajaxSubmit({
+            dataType:'json',
+            success:function (data) {
+                this_obj.unwrap();
+                layer.close(loading);
+                if(data.state == 1){
+                    this_obj.next().html("<img src='__IMG__/uploads/img/"+ data.path +"'  style='width:100px;height:100px'>");
+                    $('input[name=imgurl]').val(data.path);
+                    this_obj.prev().attr('value',data.path);
+                }else{
+                    layer.msg(data.reason,{icon:5,time:1000});
+                }
+            },
+            error:function (err) {
+                console.log(err);
+                this_obj.unwrap();
+                layer.close(loading);
+                layer.msg('网络错误，请重试！',{icon:5,time:1000});
+            }
+        });
+    });
+</script>
+{/block}

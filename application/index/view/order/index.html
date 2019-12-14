@@ -1,0 +1,51 @@
+{extend name="template/base" /}
+{block name="content"}
+
+<!-- 订单详情 -->
+<div class="order-box" data-li style="height: 100%">
+    <input name="ordertype" type="hidden" value="1">
+    <div class="share-nav zxj-nav">
+        <a href="javascript:;" class="on" data-type="1">线上课</a>
+        <a href="javascript:;" data-type="2">线下营</a>
+    </div>
+    <ul class="order-list zxj-orderlist">
+        <div class="empty" style="padding: 50px;display: none">
+            <img  src="__STATIC__/index/img/kecheng.png" alt="" style="width: 100%">
+            <p style="width: 100%;text-align: center;font-size: 20px;margin-top: 12px">暂无课程</p>
+        </div>
+    </ul>
+
+    <ul class="order-list zxj-orderlist" hidden>
+        <div class="empty" style="padding: 50px;display: none">
+            <img  src="__STATIC__/index/img/kecheng.png" alt="" style="width: 100%">
+            <p style="width: 100%;text-align: center;font-size: 20px;margin-top: 12px">暂无课程</p>
+        </div>
+    </ul>
+</div>
+
+
+<div class="footer">
+    <a href="{:url('index/index')}">
+        <div class="upgrade-tool-img">
+            <img src="__STATIC__/index/img/mm2.png?v={:time()}">
+        </div>
+
+        锦鲤MoM
+    </a>
+    <a href="{:url('order/index')}">
+        <div class="upgrade-tool-img">
+            <img src="__STATIC__/index/img/kd1.png?v={:time()}">
+        </div>
+        我的课程
+    </a>
+    <a href="{:url('user/index')}">
+        <div class="upgrade-tool-img">
+            <img src="__STATIC__/index/img/user2.png?v={:time()}">
+        </div>
+        个人中心
+    </a>
+</div>
+{/block}
+{block name='script'}
+<script type="text/javascript" src="__STATIC__/index/js/order.js?v={:time()}"></script>
+{/block}

@@ -1,0 +1,26 @@
+<form class="mb-20" method="get" id="form" action="{:\\think\\Url::build($Request.action)}">
+    <input type="text" class="input-text" style="width:150px" placeholder="订单号" name="order_no" value="{$Request.param.order_no}">
+    <input type="text" class="input-text" style="width:150px" placeholder="手机号" name="phone" value="{$Request.param.phone}">
+    <input type="text" class="input-text" style="width:150px" placeholder="昵称" name="nick_name" value="{$Request.param.nick_name}">
+    <input type="text" class="input-text" style="width:150px" placeholder="用户ID" name="id" value="{$Request.param.id}">
+    <select name="level" class="select-box" style="height: 31px;width: 150px">
+        <option value="0" {if $Request.param.level == 0} selected{/if}>请选择用户等级</option>
+        <option value="1" {if $Request.param.level == 1} selected{/if}>{$levelname['level0']}</option>
+        <option value="2" {if $Request.param.level == 2} selected{/if}>{$levelname['level1']}</option>
+        <option value="3" {if $Request.param.level == 3} selected{/if}>{$levelname['level2']}</option>
+        <option value="4" {if $Request.param.level == 4} selected{/if}>{$levelname['level3']}</option>
+        <option value="5" {if $Request.param.level == 5} selected{/if}>{$levelname['level4']}</option>
+        <option value="6" {if $Request.param.level == 6} selected{/if}>{$levelname['level5']}</option>
+    </select>
+    <select name="pay_type" class="select-box" style="height: 31px;width: 150px">
+        <option value="0" {if $Request.param.pay_type == 0} selected{/if}>请选择订单状态</option>
+        <option value="1" {if $Request.param.pay_type == 1} selected{/if}>已支付</option>
+        <option value="2" {if $Request.param.pay_type == 2} selected{/if}>未支付</option>
+    </select>
+    <input type="text" class="input-text" style="width: 150px" placeholder="开始时间" readonly  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="start_time">
+    <input type="text" class="input-text" style="width: 150px" placeholder="结束时间" readonly  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="end_time">
+
+    <div class="btn btn-success" id="" name="" onclick="ext()"><i class="Hui-iconfont">&#xe665;</i> 搜索</div>
+    <div class="btn btn-success"  onclick="ex()">导出Excel</div>
+
+</form>

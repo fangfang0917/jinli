@@ -1,0 +1,16 @@
+{extend name="template/base" /}
+{block name="content"}
+<!--购买成功-->
+<div class="zxj-buysuc" >
+    <div class="done">
+        <img src="" alt="">
+        <p>购买成功</p>
+    </div>
+    <a href="javascript:;">进入课程</a>
+    <div class="joinwx">
+        <p class="pone">长按二维码添加小助手微信</p>
+        <img src="{$Customer.wx}" alt="">
+        <p class="ptwo">请添加小鲤客服微信：{$Customer.customer_wxzh},加入社群</p>
+    </div>
+</div>
+{/block}

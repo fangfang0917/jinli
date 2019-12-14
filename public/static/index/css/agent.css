@@ -1,0 +1,144 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0;
+}
+html{
+	height:100%;
+}
+.swiper-container{
+	width:100%;	
+	perspective: 1200px;
+	margin-top:.4rem;
+	position: relative;
+}
+.swiper-wrapper{
+		margin-top:10px;
+	}
+.swiper-slide{
+	width:80%;
+	transform-style: preserve-3d;
+}
+
+.swiper-slide .main-img{
+	width:100%;
+	margin:0 auto;
+	display:block;
+}
+
+.swiper-slide .swiper-slide-next,.swiper-slide-prev{
+    opacity: 0.5; transform: translate3d(0px, 0px, -150px);
+
+}
+.swiper-slide .swiper-slide-active{
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+}
+.g-view:before{
+    height:0;
+}
+.topSuspension{
+    width:100%;
+    background:#FFF9F0;
+    display: flex;
+    padding:0.2rem;
+    box-sizing: border-box;
+    visibility:hidden
+}
+.topSuspension p{
+    color:#E1B775;
+    font-size:14px;
+    width:90%;
+    margin-left: 8px;
+}
+.topSuspension img{
+    width:5%;
+}
+.vipImg{
+    width:25%;
+    height:45%;
+    overflow: hidden;
+    position: absolute;
+    top:0.2rem;
+    left:0.4rem;
+}
+.exclusiveVIP{
+    width:45%;
+    height:40%;
+    position: absolute;
+    top:0.3rem;
+    left:1.8rem;
+    padding-top: 0.2rem;
+}
+.open{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    top: 2.5rem;
+    left: 0.36rem;
+    width:90%;
+    padding-right:0.36rem;
+}
+.open a{
+    pointer-events:none
+}
+.level {
+    display: flex;
+    width:100%;
+    position: absolute;
+    top:1.95rem;
+    left:0.33rem;
+}
+
+.progress-bar {
+    /* 进度条的槽 */
+    width: 47%;
+    /* 设置进度条的高度 */
+    height: 5px;
+    /*进度条外层div的背景色，进度未达到的地方的颜色 */
+    background-color: #D8A351;
+    border-radius: 3px;
+    margin-top:0.1rem;
+}
+
+.progress {
+    /* 进度部分 */
+    /* 利用继承父元素宽度的百分比控制进度 */
+    width: 60%;
+    height: 100%;
+    /* 内层背景色即进度达到的颜色 */
+    background-color: #FFFFFF;
+    border-radius: 3px;
+}
+.levelVIP{
+    width:0.5rem;
+    height:0.28rem;
+    background: #fff;
+    /*font-size:0.2rem;*/
+    /*font-size:0.2rem;*/
+    text-align: center;
+    color:#E1B877;
+    border-radius: 4px;
+}
+.levelOne{
+    width:0.7rem;
+    height:0.28rem;
+    background:#D8A351;
+    color:#F2DFBA;
+    text-align: center;
+    /*font-size:0.1rem;*/
+    border-radius: 4px;
+    line-height: 0.28rem;
+}
+.agreement{
+    width:100%;
+	padding-left:0.8rem;
+	margin-top:.5rem;
+}
+.agreement input{
+    width:0.34rem;
+    height:0.34rem;
+    border:1px solid #979797;
+    border-radius:2px;
+}

@@ -1,0 +1,15 @@
+<td><input type="checkbox" name="id[]" value="{$vo.id}"></td>
+<td>{$vo.id}</td>
+<td>{:getCourseClassifyType($vo['course_type'])}</td>
+<td>{$vo.course_classify_title}</td>
+<td><img src="{$vo.course_pic}" alt="" style="width:120px;height:60px;"></td>
+<td>{$vo.course_title}</td>
+<td>{$vo.course_money}</td>
+<td>{$vo.course_vip_money}</td>
+<td>{if $vo.course_isvip == 1} <span style="color: #00B83F">是</span>{else} <span style="color: red">否</span> {/if}</td>
+<td>{if $vo.course_index == 1} <span style="color: #00B83F">是</span>{else} <span style="color: red">否</span> {/if}</td>
+<td>{$vo.course_money_op}%</td>
+<td>{:date('Y-m-d H:i:s',$vo.course_add_time)}</td>
+<td style="padding: 0">
+    <input type="number" name="sort[{$vo.id}]" value="{$vo.sort}" style="width: 60px;"
+           class="input-text text-c order-input" data-id="{$vo.id}"></td>

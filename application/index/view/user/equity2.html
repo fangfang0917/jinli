@@ -1,0 +1,248 @@
+{extend name="template/base"/}
+{block name='style'}
+<link rel="stylesheet" type="text/css" href="__STATIC__/index/css/sc.css?v={:time()}">
+<style>
+    .open a {
+        pointer-events: auto;
+    }
+
+    .agreement {
+        padding-left: 0.34rem;
+        padding-top: .3rem
+    }
+
+    label {
+        display: flex;
+        position: relative
+    }
+
+    label span {
+        line-height: 0.34rem;
+        font-size: 12px
+    }
+
+    label .follow {
+        color: #999999;
+        margin-left: 0.2rem
+    }
+
+    label .platform {
+        color: #1490E9
+    }
+
+    label .icon {
+        position: absolute;
+        top: 0;
+        left: -0.01rem;
+        opacity: 0
+    }
+
+    .agreement .select {
+        width: 0.34rem;
+        height: 0.34rem;
+        border: 1px solid #979797;
+        border-radius: 2px
+    }
+
+    .agreement input {
+        width: 0.34rem;
+        height: 0.34rem;
+        opacity: 0;
+        appearance: checkbox;
+        -moz-appearance: checkbox;
+        -webkit-appearance: checkbox
+    }
+
+    html, body {
+        background-color: #F9F9F9 !important
+    }
+
+    .tip-box-inner {
+        position: absolute;
+        top: -0.7rem;
+        left: 3.5rem;
+
+    }
+
+    .tip-box-inner .innernum {
+        font-size: 10px;
+        position: absolute;
+        top: 9px;
+        /*left: 9px;*/
+        width: 100%;
+        text-align: center;
+    }
+</style>
+{/block}
+{block name="content"}
+<div>
+    <input type="hidden" name="che-level" value="">
+    <div class="topSwiper" data-show="{$level}">
+        <div class="left hidden"></div>
+        {volist name='sharelevel' id='vo'}
+        <div data-item="{$key}" class="top-box hidden card" data-level='{$vo.level}' data-getLevel="{$sharelevelGet}"
+             data-nowLevel="{$userInfo['level']}">
+            <img class="backgroundImg" src="{$vo.bimg}" alt="">
+            <!--<img class="vipImg" src="{$vo.img}" alt="">-->
+            <div class="exclusiveVIP">
+                <p class="VIP-yz{$vo['level']}">{$vo.content}</p>
+                <p class="VIP-price{$vo['level']}">
+                    <span class="isPrice">￥{$vo.vip_money}</span>
+                    <!--<span class="isOpenlc">{if $vo.level <= $userInfo.level}已开通{else}未开通{/if}</span>-->
+                </p>
+            </div>
+            {if !in_array($vo.level,[1])}
+            {if $vo.level<=$userInfo['level']}
+            <div class="tsix">永久有效</div>
+            {else}
+            <div class="open topUp">
+                <div class="leftword">{$vo.left_bottom_content}</div>
+                {if $vo.level == 5}
+                <div class="rightword "><img src="__STATIC__/index/img/home/vip_an_{$vo.level}.png" alt=""
+                                             onclick="setAgent()" style="pointer-events: none"></div>
+                {else}
+                <div class="rightword"><img src="__STATIC__/index/img/home/vip_an_{$vo.level}.png" alt=""
+                                            onclick="levelUp('{$vo.level}')" style="pointer-events: none"></div>
+                {/if}
+            </div>
+            {/if}
+            {/if}
+            {if in_array($vo.level,[1])}
+            <div class="open topUp">
+                {if $userInfo['level'] == 0}
+                <div class="leftword ">{$vo.left_bottom_content}</div>
+                <div class="rightword "><img src="__STATIC__/index/img/home/vip_an_{$vo.level}.png" alt=""
+                                             onclick="buyVip()" style="pointer-events: none"></div>
+                {else}
+                {if $userInfo['level']>1 }
+                <p class="tsix">永久有效</p>
+                {else}
+                <p class="tsix">
+                    {:date('Y-m-d',$userInfo['buy_vip_time'])}~{:date('Y-m-d',$userInfo['buy_vip_time']+365*24*60*60)}
+                </p>
+                {/if}
+                {/if}
+            </div>
+            {/if}
+
+
+        </div>
+        {/volist}
+        <div class="next"></div>
+    </div>
+
+    <!--<div class="agreement" style="display: none;">-->
+    <!--<label>-->
+    <!--<span class="follow">开通默认同意遵循</span>-->
+    <!--<span class="platform"><a href="{:url('About/plat')}">《锦鲤MoM平台收费协议》</a></span>-->
+    <!--</label>-->
+    <!--</div>-->
+    <div class="agreement" style="display: none;">
+        <label>
+            <div class="select">
+                <svg class="icon"
+                     style="width: .4em; height: .4em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+                     viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6655">
+                    <path d="M876.987738 223.178989c-34.218336-26.873044-83.720773-20.923542-110.598934 13.284561L466.977597 617.637945 246.479671 403.361721c-31.19242-30.30112-81.06427-29.578666-111.381763 1.613754-30.30112 31.197536-29.589922 81.075527 1.608637 111.38688l282.442744 274.417977c31.197536 30.312376 81.069387 29.578666 111.376647-1.608637 3.526313-3.623527 5.183046-8.15575 7.872295-12.224416 3.764744-3.260254 8.116865-5.574972 11.301394-9.633405l340.567559-433.56358C917.14432 299.543214 911.189701 250.045893 876.987738 223.178989z"
+                          p-id="6656"></path>
+                </svg>
+                <input name="userlevel" type="checkbox" value="1">
+            </div>
+            <span class="follow">开通默认同意遵循</span>
+            <span class="platform"><a href="{:url('About/plat')}">《锦鲤MoM平台收费协议》</a></span>
+        </label>
+    </div>
+    <div class="topSuspension">
+        <img src="__STATIC__/index/img/horn.png" alt="">
+        <p>同意平台协议后才可开通</p>
+        <img id="deleteTop" src="__STATIC__/index/img/cross.png" alt="">
+    </div>
+    <!--会员专属权益介绍-->
+    <div class="z-exclusive">
+        <div class="topexc">
+            <p class="pone">会员专属权益介绍</p>
+            <a href="javascript:;" class="ptwo uu"><span>查看详情</span><img
+                    src="__STATIC__/index/img/home/jiantou.png" alt=""></a>
+        </div>
+        <div class="botexc">
+            <a href="javascript:;" class="done uu">
+                <img src="__STATIC__/index/img/home/kclb.png" alt="">
+                <p>课程礼包</p>
+            </a>
+            <a href="javascript:;" class="done uu">
+                <img src="__STATIC__/index/img/home/xszk.png" alt="">
+                <p>专享折扣</p>
+            </a>
+            <a href="javascript:;" class="done uu">
+                <img src="__STATIC__/index/img/home/xxsq.png" alt="">
+                <p>学习社群</p>
+            </a>
+            <a href="javascript:;" class="done uu">
+                <img src="__STATIC__/index/img/home/lszq.png" alt="">
+                <p>零售赚钱</p>
+            </a>
+        </div>
+    </div>
+    <!--灰条-->
+    <div class="ht"></div>
+
+    <!--高端唤醒营-->
+    <div class="z-camp" style="display: none">
+        <div class="topcamp">
+            <p class="pone">高端唤醒营</p>
+        </div>
+        <div class="botcamp">
+            <a href="javascript:;" class="done uu">
+                <img src="__STATIC__/index/img/home/zxjhx.png" class="q" alt="">
+                <p>初级唤醒执行师课程包</p>
+            </a>
+            <a href="javascript:;" class="done uu">
+                <img src="__STATIC__/index/img/home/zxjcf.png" class="s" alt="">
+                <p>初级创富权益</p>
+            </a>
+        </div>
+    </div>
+    <!--灰条-->
+    <div class="ht"></div>
+
+    <!--升级任务-->
+    <div class="z-task" hidden>
+        <div class="toptask">
+            <p class="pone">升级任务</p>
+        </div>
+        <p class="z-tj">已推荐 <span>{$userInfo['share_num']}</span> 人</p>
+
+
+        {volist name='data' id='vo'}
+        <div class="z-hy">
+            <div class="done"><img src="{$vo.img}" alt=""></div>
+            <div class="dtwo">
+                <p class="pone">{$vo.content}</p>
+                <p class="ptwo">{$vo.left_bottom_title}</p>
+            </div>
+            {if $userInfo['level']>=$vo['level']}
+            <div class="dth">已完成</div>
+            {else}
+            {if $vo.my_share_num >= $vo.share_num}
+            <a class="atwo" href="javascript:;" onclick="levelUpNotBuy('{$vo.level}')">升级</a>
+            {else}
+            <a class="aone" href="javascript:;">升级</a>
+            {/if}
+            {/if}
+
+        </div>
+        {/volist}
+
+    </div>
+    <!--使用须知-->
+    <div class="z-info">
+        <p class="ptitle">使用须知</p>
+        {volist name='pro' id='r'}
+        <p class="pone">Q:{$r.problem}？</p>
+        <p class="ptwo">A:{$r.da}</p>
+        {/volist}
+    </div>
+    {/block}
+    {block name='script'}
+    <script type="text/javascript" src="__STATIC__/index/js/sc.js?v={:time()}"></script>
+    {/block}

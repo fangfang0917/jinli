@@ -1,0 +1,61 @@
+{extend name="template/base" /}
+{block name="content"}
+
+<style>
+    .share-top {
+        padding-top: 0 !important;
+        z-index: 999;
+        position: fixed;
+        top: 5%;
+        width: 100%;
+    }
+    .share-bot {
+        padding: 0 14%;
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 70%;
+        margin: 0 auto;
+    }
+    .floating-box {
+        display: none;
+    }
+    .side {
+        width: 100%;
+        height: 100%;
+        background: #2B3A9A;
+        z-index: -1;
+    }
+</style>
+<div class="side"></div>
+
+<div class="share-top">
+    <!--<i class="iconfont icon-xiajiantou"></i><a href="javascript:$(function() {$('.share-box').hide()  });">关闭</a>-->
+    <span>长按保存图片</span>
+</div>
+<div class="share-imgbox">
+    <img src="__STATIC__/uploads/share/{$pic['val']}" style="width: 80%;margin: auto;z-index: 1999999;">
+</div>
+<div class="share-bot" style="display: none;">
+    <div class="share-icon">
+        <div class="share-img" share-wx="">
+            <img src="__STATIC__/index/img/wechat.png">
+        </div>
+        <span>微信</span>
+    </div>
+    <div class="share-icon" share-pyq="">
+        <div class="share-img">
+            <img src="__STATIC__/index/img/life.png">
+        </div>
+        <span>朋友圈</span>
+    </div>
+    <div class="share-icon">
+        <div class="share-img">
+            <img src="__STATIC__/index/img/qq.png">
+        </div>
+        <span>QQ</span>
+    </div>
+</div>
+{/block}
