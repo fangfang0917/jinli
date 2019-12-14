@@ -1,3 +1,0 @@
-<?php
-//000000000000a:13:{s:9:"index_pic";s:49:"http://img.sxzywl.net/dd17d201911071513294693.png";s:13:"index_pic_url";s:0:"";s:10:"index_pic1";s:49:"http://img.sxzywl.net/dc932201911061104014042.png";s:14:"index_pic_url1";s:0:"";s:10:"index_pic2";s:48:"http://img.sxzywl.net/2123c20191106110414581.png";s:14:"index_pic_url2";s:0:"";s:10:"index_pic3";s:49:"http://img.sxzywl.net/59af4201911061104255500.png";s:14:"index_pic_url3";s:0:"";s:10:"index_pic4";s:49:"http://img.sxzywl.net/dd17d201911071513294693.png";s:14:"index_pic_url4";s:0:"";s:10:"index_pic5";s:49:"http://img.sxzywl.net/b9a35201911061104395767.png";s:14:"index_pic_url5";s:0:"";s:8:"checkbox";a:2:{i:0;s:1:"1";i:1;s:1:"6";}}
-?>
